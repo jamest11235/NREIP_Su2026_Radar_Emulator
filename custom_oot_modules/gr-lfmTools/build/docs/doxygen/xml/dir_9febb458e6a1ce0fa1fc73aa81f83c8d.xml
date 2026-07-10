@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_9febb458e6a1ce0fa1fc73aa81f83c8d" kind="dir">
+    <compoundname>bindings</compoundname>
+    <innerfile refid="build_2python_2lfmTools_2bindings_2pydoc__macros_8h">build/python/lfmTools/bindings/pydoc_macros.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/build/python/lfmTools/bindings/"/>
+  </compounddef>
+</doxygen>

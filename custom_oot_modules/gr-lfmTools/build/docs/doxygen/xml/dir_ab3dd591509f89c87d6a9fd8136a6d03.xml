@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_ab3dd591509f89c87d6a9fd8136a6d03" kind="dir">
+    <compoundname>python</compoundname>
+    <innerdir refid="dir_8aacf305c52065991ab6d7e33f2538c7">lfmTools</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/build/python/"/>
+  </compounddef>
+</doxygen>

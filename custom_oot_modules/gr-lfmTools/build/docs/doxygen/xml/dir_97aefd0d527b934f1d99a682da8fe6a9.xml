@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="dir_97aefd0d527b934f1d99a682da8fe6a9" kind="dir">
+    <compoundname>lib</compoundname>
+    <innerfile refid="LFM__On__Trigger__impl_8h">LFM_On_Trigger_impl.h</innerfile>
+    <innerfile refid="LFM__Source__impl_8h">LFM_Source_impl.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/"/>
+  </compounddef>
+</doxygen>

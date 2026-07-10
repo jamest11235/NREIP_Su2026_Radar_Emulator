@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classgr_1_1lfmTools_1_1LFM__Source" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>gr::lfmTools::LFM_Source</compoundname>
+    <basecompoundref prot="public" virt="virtual">gr::sync_block</basecompoundref>
+    <derivedcompoundref refid="classgr_1_1lfmTools_1_1LFM__Source__impl" prot="public" virt="non-virtual">gr::lfmTools::LFM_Source_impl</derivedcompoundref>
+    <includes refid="LFM__Source_8h" local="no">LFM_Source.h</includes>
+    <sectiondef kind="public-type">
+      <memberdef kind="typedef" id="classgr_1_1lfmTools_1_1LFM__Source_1a53719a79b200055bdef4ad1024cc7419" prot="public" static="no">
+        <type>std::shared_ptr&lt; <ref refid="classgr_1_1lfmTools_1_1LFM__Source" kindref="compound">LFM_Source</ref> &gt;</type>
+        <definition>typedef std::shared_ptr&lt;LFM_Source&gt; gr::lfmTools::LFM_Source::sptr</definition>
+        <argsstring></argsstring>
+        <name>sptr</name>
+        <qualifiedname>gr::lfmTools::LFM_Source::sptr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="25" column="29" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__Source_1a62770fab7a599cf7f8932e50b35421b2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classgr_1_1lfmTools_1_1LFM__Source_1a53719a79b200055bdef4ad1024cc7419" kindref="member">sptr</ref></type>
+        <definition>static sptr gr::lfmTools::LFM_Source::make</definition>
+        <argsstring>(float bandwidth=200e3, float duty_cycle=0.5, float pri=500e-6, float samp_rate=2e6, float amplitude=0.5)</argsstring>
+        <name>make</name>
+        <qualifiedname>gr::lfmTools::LFM_Source::make</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+          <defval>200e3</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>duty_cycle</declname>
+          <defval>0.5</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>pri</declname>
+          <defval>500e-6</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>samp_rate</declname>
+          <defval>2e6</defval>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>amplitude</declname>
+          <defval>0.5</defval>
+        </param>
+        <briefdescription>
+<para>Return a shared_ptr to a new instance of <ref refid="classgr_1_1lfmTools_1_1LFM__Source" kindref="compound">lfmTools::LFM_Source</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>To avoid accidental use of raw pointers, <ref refid="classgr_1_1lfmTools_1_1LFM__Source" kindref="compound">lfmTools::LFM_Source</ref>&apos;s constructor is in a private implementation class. <ref refid="classgr_1_1lfmTools_1_1LFM__Source_1a62770fab7a599cf7f8932e50b35421b2" kindref="member">lfmTools::LFM_Source::make</ref> is the public interface for creating new instances. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="35" column="17"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__Source_1af15b0444fdb94b13a3a3fb39b2325a48" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lfmTools::LFM_Source::set_bandwidth</definition>
+        <argsstring>(float bandwidth)=0</argsstring>
+        <name>set_bandwidth</name>
+        <qualifiedname>gr::lfmTools::LFM_Source::set_bandwidth</qualifiedname>
+        <reimplementedby refid="classgr_1_1lfmTools_1_1LFM__Source__impl_1a82e1951b49e0ca6e09335a122221fa02">set_bandwidth</reimplementedby>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="41" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__Source_1a31a026dd8131ff98b5062baaf4de619d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lfmTools::LFM_Source::set_duty_cycle</definition>
+        <argsstring>(float duty_cycle)=0</argsstring>
+        <name>set_duty_cycle</name>
+        <qualifiedname>gr::lfmTools::LFM_Source::set_duty_cycle</qualifiedname>
+        <reimplementedby refid="classgr_1_1lfmTools_1_1LFM__Source__impl_1a0ae96b1e35279b8dfe14d27b352b9127">set_duty_cycle</reimplementedby>
+        <param>
+          <type>float</type>
+          <declname>duty_cycle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="42" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__Source_1ab4041b47e5609fb9139c20d54885a3ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lfmTools::LFM_Source::set_pri</definition>
+        <argsstring>(float pri)=0</argsstring>
+        <name>set_pri</name>
+        <qualifiedname>gr::lfmTools::LFM_Source::set_pri</qualifiedname>
+        <reimplementedby refid="classgr_1_1lfmTools_1_1LFM__Source__impl_1a87b6b0a2e60d3721788ca95699dabf4e">set_pri</reimplementedby>
+        <param>
+          <type>float</type>
+          <declname>pri</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="43" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__Source_1af483e83277534b3c8e492f0c0c916d6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lfmTools::LFM_Source::set_samp_rate</definition>
+        <argsstring>(float samp_rate)=0</argsstring>
+        <name>set_samp_rate</name>
+        <qualifiedname>gr::lfmTools::LFM_Source::set_samp_rate</qualifiedname>
+        <reimplementedby refid="classgr_1_1lfmTools_1_1LFM__Source__impl_1a5908b6360ac08432c7d4cf7d1ec2ba89">set_samp_rate</reimplementedby>
+        <param>
+          <type>float</type>
+          <declname>samp_rate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="44" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__Source_1a895678652a04cd2310ecbdc5b4d9506c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void gr::lfmTools::LFM_Source::set_amplitude</definition>
+        <argsstring>(float amplitude)=0</argsstring>
+        <name>set_amplitude</name>
+        <qualifiedname>gr::lfmTools::LFM_Source::set_amplitude</qualifiedname>
+        <reimplementedby refid="classgr_1_1lfmTools_1_1LFM__Source__impl_1a7eebf6f4f87bd446724c342a41553346">set_amplitude</reimplementedby>
+        <param>
+          <type>float</type>
+          <declname>amplitude</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="45" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>&lt;+description of block+&gt; </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>gr::lfmTools::LFM_Source</label>
+        <link refid="classgr_1_1lfmTools_1_1LFM__Source"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>gr::lfmTools::LFM_Source_impl</label>
+        <link refid="classgr_1_1lfmTools_1_1LFM__Source__impl"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gr::sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>gr::lfmTools::LFM_Source</label>
+        <link refid="classgr_1_1lfmTools_1_1LFM__Source"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gr::sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" line="22" column="1" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_Source.h" bodystart="23" bodyend="46"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lfmTools_1_1LFM__Source_1a62770fab7a599cf7f8932e50b35421b2" prot="public" virt="non-virtual"><scope>gr::lfmTools::LFM_Source</scope><name>make</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__Source_1a895678652a04cd2310ecbdc5b4d9506c" prot="public" virt="pure-virtual"><scope>gr::lfmTools::LFM_Source</scope><name>set_amplitude</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__Source_1af15b0444fdb94b13a3a3fb39b2325a48" prot="public" virt="pure-virtual"><scope>gr::lfmTools::LFM_Source</scope><name>set_bandwidth</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__Source_1a31a026dd8131ff98b5062baaf4de619d" prot="public" virt="pure-virtual"><scope>gr::lfmTools::LFM_Source</scope><name>set_duty_cycle</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__Source_1ab4041b47e5609fb9139c20d54885a3ad" prot="public" virt="pure-virtual"><scope>gr::lfmTools::LFM_Source</scope><name>set_pri</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__Source_1af483e83277534b3c8e492f0c0c916d6d" prot="public" virt="pure-virtual"><scope>gr::lfmTools::LFM_Source</scope><name>set_samp_rate</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__Source_1a53719a79b200055bdef4ad1024cc7419" prot="public" virt="non-virtual"><scope>gr::lfmTools::LFM_Source</scope><name>sptr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

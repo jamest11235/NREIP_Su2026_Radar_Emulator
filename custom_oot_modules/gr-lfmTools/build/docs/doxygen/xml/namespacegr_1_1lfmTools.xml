@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="namespacegr_1_1lfmTools" kind="namespace" language="C++">
+    <compoundname>gr::lfmTools</compoundname>
+    <innerclass refid="classgr_1_1lfmTools_1_1LFM__On__Trigger" prot="public">gr::lfmTools::LFM_On_Trigger</innerclass>
+    <innerclass refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl" prot="public">gr::lfmTools::LFM_On_Trigger_impl</innerclass>
+    <innerclass refid="classgr_1_1lfmTools_1_1LFM__Source" prot="public">gr::lfmTools::LFM_Source</innerclass>
+    <innerclass refid="classgr_1_1lfmTools_1_1LFM__Source__impl" prot="public">gr::lfmTools::LFM_Source_impl</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/include/gnuradio/lfmTools/LFM_On_Trigger.h" line="15" column="1"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,360 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl" kind="class" language="C++" prot="public">
+    <compoundname>gr::lfmTools::LFM_On_Trigger_impl</compoundname>
+    <basecompoundref refid="classgr_1_1lfmTools_1_1LFM__On__Trigger" prot="public" virt="non-virtual">gr::lfmTools::LFM_On_Trigger</basecompoundref>
+    <includes refid="LFM__On__Trigger__impl_8h" local="no">LFM_On_Trigger_impl.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a46c129472b66969da1f14bb23e5092a7" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float gr::lfmTools::LFM_On_Trigger_impl::_bandwidth</definition>
+        <argsstring></argsstring>
+        <name>_bandwidth</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_bandwidth</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="21" column="11" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a8a0e62dcf3dedecd2fd147e1d7873916" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float gr::lfmTools::LFM_On_Trigger_impl::_pulse_width</definition>
+        <argsstring></argsstring>
+        <name>_pulse_width</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_pulse_width</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="22" column="11" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aef97d3d60237b8bf15520e35f9aa06e0" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float gr::lfmTools::LFM_On_Trigger_impl::_samp_rate</definition>
+        <argsstring></argsstring>
+        <name>_samp_rate</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_samp_rate</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="23" column="11" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a0afadc69dcb3c7be1eb7b26b8e483525" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float gr::lfmTools::LFM_On_Trigger_impl::_amplitude</definition>
+        <argsstring></argsstring>
+        <name>_amplitude</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_amplitude</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="24" column="11" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a7aa5fc7398cda6d1ef1cb5f34cf28294" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; gr_complex &gt;</type>
+        <definition>std::vector&lt;gr_complex&gt; gr::lfmTools::LFM_On_Trigger_impl::_pulse</definition>
+        <argsstring></argsstring>
+        <name>_pulse</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_pulse</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="25" column="17" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1af91f4864a03a842eb60e55495dcdfe70" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int gr::lfmTools::LFM_On_Trigger_impl::_start</definition>
+        <argsstring></argsstring>
+        <name>_start</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="26" column="9" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aa3ef0fe0374b3cd28f9a548cae04ccdb" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool gr::lfmTools::LFM_On_Trigger_impl::_wrap_around</definition>
+        <argsstring></argsstring>
+        <name>_wrap_around</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_wrap_around</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="27" column="10" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aca493680ade96674529fea766e2a7e05" prot="private" static="no" mutable="no">
+        <type>float</type>
+        <definition>float gr::lfmTools::LFM_On_Trigger_impl::_last</definition>
+        <argsstring></argsstring>
+        <name>_last</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_last</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="29" column="11" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a3da6e5847b3a3df7b5f580464d6d8485" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; gr::lfmTools::LFM_On_Trigger_impl::_rising</definition>
+        <argsstring></argsstring>
+        <name>_rising</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::_rising</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="34" column="17" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a38491f851b7e33d0868a5d7f859748aa" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gr::lfmTools::LFM_On_Trigger_impl::generate_pulse</definition>
+        <argsstring>()</argsstring>
+        <name>generate_pulse</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::generate_pulse</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="32" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a99c5d657e750d3f711988b56ced6b951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::lfmTools::LFM_On_Trigger_impl::LFM_On_Trigger_impl</definition>
+        <argsstring>(float bandwidth, float pulse_width, float samp_rate, float amplitude)</argsstring>
+        <name>LFM_On_Trigger_impl</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::LFM_On_Trigger_impl</qualifiedname>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>pulse_width</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>samp_rate</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>amplitude</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="37" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a0174494966ce031ec8e7e7627c67b072" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>gr::lfmTools::LFM_On_Trigger_impl::~LFM_On_Trigger_impl</definition>
+        <argsstring>()</argsstring>
+        <name>~LFM_On_Trigger_impl</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::~LFM_On_Trigger_impl</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="38" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aeb83026eaa11c6ec8bfd00f50438efcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int gr::lfmTools::LFM_On_Trigger_impl::work</definition>
+        <argsstring>(int noutput_items, gr_vector_const_void_star &amp;input_items, gr_vector_void_star &amp;output_items)</argsstring>
+        <name>work</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::work</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>noutput_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_const_void_star &amp;</type>
+          <declname>input_items</declname>
+        </param>
+        <param>
+          <type>gr_vector_void_star &amp;</type>
+          <declname>output_items</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="41" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1ae2cc74b7d1cab60bfe6b2fea188f6345" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void gr::lfmTools::LFM_On_Trigger_impl::set_bandwidth</definition>
+        <argsstring>(float bandwidth)</argsstring>
+        <name>set_bandwidth</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::set_bandwidth</qualifiedname>
+        <reimplements refid="classgr_1_1lfmTools_1_1LFM__On__Trigger_1a203546462b558e1a8c8f5de5cd2a1f82">set_bandwidth</reimplements>
+        <param>
+          <type>float</type>
+          <declname>bandwidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="45" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a464cf3d1ac8c3dddd727fcc11e1806b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void gr::lfmTools::LFM_On_Trigger_impl::set_pulse_width</definition>
+        <argsstring>(float pulse_width)</argsstring>
+        <name>set_pulse_width</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::set_pulse_width</qualifiedname>
+        <reimplements refid="classgr_1_1lfmTools_1_1LFM__On__Trigger_1aa63de099979f3cd51f912f958b55d8af">set_pulse_width</reimplements>
+        <param>
+          <type>float</type>
+          <declname>pulse_width</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="46" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1af5b48899fa711ad06014f31d892c9ce6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void gr::lfmTools::LFM_On_Trigger_impl::set_samp_rate</definition>
+        <argsstring>(float samp_rate)</argsstring>
+        <name>set_samp_rate</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::set_samp_rate</qualifiedname>
+        <reimplements refid="classgr_1_1lfmTools_1_1LFM__On__Trigger_1aa23119a607fcc40092f1bbbe2c2ab8f3">set_samp_rate</reimplements>
+        <param>
+          <type>float</type>
+          <declname>samp_rate</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="47" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1ad1f5fcce109078c863547ef871835d20" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void gr::lfmTools::LFM_On_Trigger_impl::set_amplitude</definition>
+        <argsstring>(float amplitude)</argsstring>
+        <name>set_amplitude</name>
+        <qualifiedname>gr::lfmTools::LFM_On_Trigger_impl::set_amplitude</qualifiedname>
+        <reimplements refid="classgr_1_1lfmTools_1_1LFM__On__Trigger_1ab8190b39af2329fe79d32fe134c2a6f2">set_amplitude</reimplements>
+        <param>
+          <type>float</type>
+          <declname>amplitude</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="48" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>gr::lfmTools::LFM_On_Trigger</label>
+        <link refid="classgr_1_1lfmTools_1_1LFM__On__Trigger"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>gr::lfmTools::LFM_On_Trigger_impl</label>
+        <link refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>gr::sync_block</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>gr::lfmTools::LFM_On_Trigger</label>
+        <link refid="classgr_1_1lfmTools_1_1LFM__On__Trigger"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>gr::lfmTools::LFM_On_Trigger_impl</label>
+        <link refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>gr::sync_block</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" line="17" column="1" bodyfile="/home/jtang/NREIP_JHTANG/custom_oot_modules/gr-lfmTools/lib/LFM_On_Trigger_impl.h" bodystart="18" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a0afadc69dcb3c7be1eb7b26b8e483525" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_amplitude</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a46c129472b66969da1f14bb23e5092a7" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_bandwidth</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aca493680ade96674529fea766e2a7e05" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_last</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a7aa5fc7398cda6d1ef1cb5f34cf28294" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_pulse</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a8a0e62dcf3dedecd2fd147e1d7873916" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_pulse_width</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a3da6e5847b3a3df7b5f580464d6d8485" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_rising</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aef97d3d60237b8bf15520e35f9aa06e0" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_samp_rate</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1af91f4864a03a842eb60e55495dcdfe70" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_start</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aa3ef0fe0374b3cd28f9a548cae04ccdb" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>_wrap_around</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a38491f851b7e33d0868a5d7f859748aa" prot="private" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>generate_pulse</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a99c5d657e750d3f711988b56ced6b951" prot="public" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>LFM_On_Trigger_impl</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger_1a20e01cf2cdbbdd8a76dff0c55adb4310" prot="public" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>make</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1ad1f5fcce109078c863547ef871835d20" prot="public" virt="virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>set_amplitude</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1ae2cc74b7d1cab60bfe6b2fea188f6345" prot="public" virt="virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>set_bandwidth</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a464cf3d1ac8c3dddd727fcc11e1806b7" prot="public" virt="virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>set_pulse_width</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1af5b48899fa711ad06014f31d892c9ce6" prot="public" virt="virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>set_samp_rate</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger_1a6f408f63c30e6021b312e62c349a7254" prot="public" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>sptr</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1aeb83026eaa11c6ec8bfd00f50438efcc" prot="public" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>work</name></member>
+      <member refid="classgr_1_1lfmTools_1_1LFM__On__Trigger__impl_1a0174494966ce031ec8e7e7627c67b072" prot="public" virt="non-virtual"><scope>gr::lfmTools::LFM_On_Trigger_impl</scope><name>~LFM_On_Trigger_impl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
