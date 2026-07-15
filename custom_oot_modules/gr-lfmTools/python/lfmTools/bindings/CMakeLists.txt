@@ -27,10 +27,10 @@ include(GrPybind)
 ########################################################################
 # Python Bindings
 ########################################################################
-
 list(APPEND lfmTools_python_files
     LFM_On_Trigger_python.cc
-    LFM_Source_python.cc python_bindings.cc)
+    LFM_Source_python.cc
+    peak_detector_python.cc python_bindings.cc)
 
 GR_PYBIND_MAKE_OOT(lfmTools
    ../../..

@@ -9,7 +9,8 @@
 #include <gnuradio/io_signature.h>
 #include <complex.h>
 #include <vector>
-#include <cstring> 
+#include <cstring>
+#include <random>
 
 namespace gr {
 namespace lfmTools {
@@ -85,6 +86,8 @@ void LFM_Source_impl::generate_signal() {
     int samples_per_pri = int(_pri * _samp_rate);
     _signal.resize(samples_per_pri);
 
+    set_output_multiple(samples_per_pri);
+    
     float pulse_width = _pri * _duty_cycle; 
     int samples_per_pulse = int(pulse_width * _samp_rate);
     float ramp_rate = _bandwidth / pulse_width;
@@ -107,24 +110,11 @@ int LFM_Source_impl::work(int noutput_items,
                              gr_vector_void_star& output_items)
 {
     //auto in = static_cast<const input_type*>(input_items[0]);
-    auto out = static_cast<output_type*>(output_items[0]);
     int samples_per_pri = int(_pri * _samp_rate);
-    if (samples_per_pri - _start > noutput_items) {
-        std::memcpy(out, _signal.data() + _start, noutput_items * sizeof(gr_complex));
-        _start += noutput_items;
-    } else {
-        std::memcpy(out, _signal.data() + _start, (samples_per_pri - _start) * sizeof(gr_complex));
-        int i = samples_per_pri - _start;
-        while (i + samples_per_pri <= noutput_items) {
-            std::memcpy(out + i, _signal.data(), samples_per_pri * sizeof(gr_complex));
-            i += samples_per_pri;
-        }
-        int elements_remaining = noutput_items - i;
-        std::memcpy(out + i, _signal.data(), elements_remaining * sizeof(gr_complex));
-        _start = elements_remaining;
-    }
-    
-    // Tell runtime system how many output items we produced.
+    auto out = static_cast<output_type*>(output_items[0]);
+    for (int i = 0; i < noutput_items; i += samples_per_pri)
+        std::memcpy(out + i, _signal.data(), samples_per_pri * sizeof(gr_complex));
+        
     return noutput_items;
 }
 

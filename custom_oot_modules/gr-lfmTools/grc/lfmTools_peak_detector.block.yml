@@ -1,15 +1,10 @@
-id: lfmTools_LFM_On_Trigger
-label: LFM On Trigger
+id: lfmTools_peak_detector
+label: peak_detector
 category: '[LFM Tools]'
 
 templates:
   imports: from gnuradio import lfmTools
-  make: lfmTools.LFM_On_Trigger(${bandwidth}, ${pulse_width}, ${samp_rate}, ${amplitude})
-  callbacks:
-  - set_bandwidth(${bandwidth})
-  - set_pulse_width(${pulse_width})
-  - set_samp_rate(${samp_rate})
-  - set_amplitude(${amplitude})
+  make: lfmTools.peak_detector(${threshold_factor_rise}, ${look_ahead}, ${calibration_window}, ${calibration_interval})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
@@ -18,22 +13,25 @@ templates:
 #     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
 #     * default
 parameters:
-- id: bandwidth
-  label: Bandwidth
+- id: threshold_factor_rise
+  label: Threshold Factor Rise
   dtype: float
-  default: 1e6
-- id: pulse_width
-  label: Pulse Width
-  dtype: float
-  default: 500e-6
-- id: samp_rate
-  label: Sample Rate
-  dtype: float
-  default: 2e6
-- id: amplitude
-  label: Amplitude
-  dtype: float
-  default: 0.5
+  default: 0.9
+- id: look_ahead
+  label: Look Ahead
+  dtype: int
+  default: 100
+- id: calibration_window
+  label: Calibration Window
+  dtype: int
+  default: 1000
+- id: calibration_interval
+  label: Calibration Interval
+  dtype: int
+  default: 10000
+#- id: ...
+#  label: ...
+#  dtype: ...
 
 #  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
 #  Keys include:
@@ -45,12 +43,17 @@ parameters:
 inputs:
 - label: in0
   domain: stream
-  dtype: byte
+  dtype: float
+#- label: ...
+#  domain: ...
+#  dtype: ...
+#  vlen: ...
+#  optional: ...
 
 outputs:
 - label: out0
   domain: stream
-  dtype: complex
+  dtype: byte
 
 #  'file_format' specifies the version of the GRC yml format used in the file
 #  and should usually not be changed.

@@ -7,14 +7,17 @@
 
 #include "LFM_On_Trigger_impl.h"
 #include <gnuradio/io_signature.h>
+#include <gnuradio/logger.h>
 #include <complex.h>
 #include <vector>
 #include <cstring> 
+#include <cassert>
+#include <sstream>
 
 namespace gr {
 namespace lfmTools {
 
-using input_type = float;
+using input_type = char;
 using output_type = gr_complex;
 
 constexpr float PI = 3.1415926536f;
@@ -37,12 +40,13 @@ LFM_On_Trigger_impl::LFM_On_Trigger_impl(float bandwidth, float pulse_width, flo
                      gr::io_signature::make(
                          1 /* min outputs */, 1 /*max outputs */, sizeof(output_type)))
 {
+    _d_trigger = false;
+    _last = 0;
+    // this->set_output_multiple(_MAX_PULSE_SAMPLES);
     _bandwidth = bandwidth;
     _pulse_width = pulse_width;
     _samp_rate = samp_rate;
     _amplitude = amplitude;
-    _wrap_around = false;
-    _last = 1;
     generate_pulse();
 }
 
@@ -75,10 +79,18 @@ void LFM_On_Trigger_impl::set_amplitude(float amplitude)
  */
 LFM_On_Trigger_impl::~LFM_On_Trigger_impl() {}
 
-void LFM_On_Trigger_impl::generate_pulse() {
-    _start = 0;
+void LFM_On_Trigger_impl::generate_pulse() {    
     int samples_per_pulse = int(_pulse_width * _samp_rate);
     _pulse.resize(samples_per_pulse);
+    
+    if (samples_per_pulse > _MAX_PULSE_SAMPLES) {
+        std::stringstream ss;
+        ss << "Samples per pulse " << samples_per_pulse
+          << " is greater than the maximum allowable samples "
+          << _MAX_PULSE_SAMPLES << ".";
+        d_logger->error(ss.str());
+    }
+    assert(samples_per_pulse <= _MAX_PULSE_SAMPLES);
 
     float ramp_rate = _bandwidth / _pulse_width;
     float time;
@@ -98,75 +110,39 @@ int LFM_On_Trigger_impl::work(int noutput_items,
     auto in = static_cast<const input_type*>(input_items[0]);
     auto out = static_cast<output_type*>(output_items[0]);
     
-    // Set rising size
-    int samples_per_pulse = int(_pulse_width * _samp_rate);
-    if (_rising.size() < size_t(noutput_items / samples_per_pulse + 2))
-        _rising.resize(noutput_items / samples_per_pulse + 2);
-    
-    // edge case where edge happens at buffer transition
-    if (_last < in[0] && !_wrap_around) {
-        _start = 0;
-        _wrap_around = true;
-    }
- 
-    // new code initialize output to 0
-    std::fill(out, out + noutput_items, gr_complex(0.0f, 0.0f));
-    
-    if (samples_per_pulse - _start > noutput_items && _wrap_around) { // new conditional (added _wrap_around)
-        std::memcpy(out, _pulse.data() + _start, noutput_items * sizeof(gr_complex));
-        _start += noutput_items;
-        _wrap_around = true; // set wrap around to true
-        return noutput_items;
-        
-    } else {
-        int skip;
-        if (_wrap_around) {
-            std::memcpy(out, _pulse.data() + _start, (samples_per_pulse - _start) * sizeof(gr_complex));
-            skip = samples_per_pulse - _start;
+    if (_d_trigger) {
+        int pulse_size = _pulse.size();
+        std::memcpy(out, _pulse.data(), pulse_size * sizeof(output_type));
+        _d_trigger = false;
+        set_output_multiple(1);
+        return _pulse.size();
+        /*
+        if (in[pulse_size - 1] > in[pulse_size - 2]) {
+            _d_trigger = true;
         } else {
-            skip = 0;
-        }// New, only copy at start of the the signal if wrap_around is true
-        
-        // iterate through the list looking for first edge transition
-        int first = skip;
-        for (; first < noutput_items - 1 && in[first] >= in[first + 1]; first++);
-        if (first == noutput_items - 1) { // no transition found, return
-            _wrap_around = false;
-            return noutput_items;
-        } else { // transition found
-            // compile list of samples_per_pulse separated rising edges
-            int last = 0;
-            _rising[0] = first+1;
-            for (int i = first + 1; i < noutput_items - 1; i++) {
-                if (in[i] < in[i + 1] && i - _rising[last] > samples_per_pulse) {
-                    _rising[++last] = i+1;
-                }
-            }
-        
-            // populate with pulses
-            int edge_i = 0;
-            while (edge_i <= last && _rising[edge_i] + samples_per_pulse <= noutput_items) {
-                std::memcpy(out + _rising[edge_i], _pulse.data(), samples_per_pulse * sizeof(gr_complex));
-                edge_i += 1;
-            }
-            
-            // look at last edge
-            if (_rising[last] + samples_per_pulse > noutput_items) {
-                int elements_remaining = noutput_items - _rising[last];
-                std::memcpy(out + _rising[last], _pulse.data(), elements_remaining * sizeof(gr_complex));
-               _start = elements_remaining;
-               _wrap_around = true;
-            } else {
-               _wrap_around = false;
-            }
-            
-            _last = in[noutput_items - 1]; // store last element
-            return noutput_items;
+            _d_trigger = false;
         }
+        return pulse_size; */
+    } else {
+        /*
+        if (in[0] > _last) {
+            _d_trigger = true;
+            return 0;
+        }
+        */
+        for (int i = 0; i < noutput_items; i++) {
+            out[i] = 0;
+            if (in[i] != 0) {
+                _d_trigger = true;
+                set_output_multiple(_pulse.size());
+                return i;
+            }
+        }
+        // _last = in[noutput_items - 1];
+        return noutput_items;
     }
     
     // Tell runtime system how many output items we produced.
-    return noutput_items;
 }
 
 } /* namespace lfmTools */

@@ -23,13 +23,14 @@ private:
     float _samp_rate;
     float _amplitude;
     std::vector<gr_complex> _pulse;
-    int _start;
-    bool _wrap_around; // new wraparound state holder
+    bool _d_trigger;
     
     float _last;
     // edge case where the rising edge happens from one buffer to another, e.g. prev_buffer_in[-1] = 0 and next_buffer_out[0] = 1
 
     void generate_pulse();
+    
+    const int _MAX_PULSE_SAMPLES = 2e6 * 1e-2;
     
     std::vector<int> _rising;
 
