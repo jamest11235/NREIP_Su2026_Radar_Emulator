@@ -17,15 +17,14 @@ class LFM_Source_impl : public LFM_Source
 {
 private:
     // Nothing to declare in this block.
-    float _bandwidth;
-    float _duty_cycle;
-    float _pri;
-    float _samp_rate;
-    float _amplitude;
-    std::vector<gr_complex> _signal;
-    int _start;
-
+    float d_bandwidth;
+    float d_duty_cycle;
+    float d_pri;
+    float d_samp_rate;
+    float d_amplitude;
+    std::vector<gr_complex> d_signal;
     void generate_signal();
+    const pmt::pmt_t d_port;
 
 public:
     LFM_Source_impl(float bandwidth, float duty_cycle, float pri, float samp_rate, float amplitude);
@@ -41,7 +40,6 @@ public:
     void set_pri(float pri);
     void set_samp_rate(float samp_rate);
     void set_amplitude(float amplitude);
-
 };
 
 } // namespace lfmTools

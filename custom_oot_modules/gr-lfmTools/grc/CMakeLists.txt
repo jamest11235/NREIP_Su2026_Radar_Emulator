@@ -8,5 +8,6 @@
 install(FILES
     lfmTools_LFM_On_Trigger.block.yml
     lfmTools_LFM_Source.block.yml
-    lfmTools_peak_detector.block.yml DESTINATION share/gnuradio/grc/blocks
+    lfmTools_peak_detector.block.yml
+    DESTINATION share/gnuradio/grc/blocks
 )

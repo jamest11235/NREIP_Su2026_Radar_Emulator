@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(peak_detector.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(486b1c09ac43f4d91fc303f90671a820)                     */
+/* BINDTOOL_HEADER_FILE_HASH(6f628849aca22c8b40eed35e624dcac3)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -40,17 +40,15 @@ void bind_peak_detector(py::module& m)
                std::shared_ptr<peak_detector>>(m, "peak_detector", D(peak_detector))
 
         .def(py::init(&peak_detector::make),
-             py::arg("threshold_factor_rise") = 0.90000000000000002,
+             py::arg("threshold") = 0.01,
              py::arg("look_ahead") = 100,
-             py::arg("calibration_window") = 1000,
-             py::arg("calibration_interval") = 100000,
              D(peak_detector, make))
 
 
-        .def("set_threshold_factor_rise",
-             &peak_detector::set_threshold_factor_rise,
-             py::arg("thr"),
-             D(peak_detector, set_threshold_factor_rise))
+        .def("set_threshold",
+             &peak_detector::set_threshold,
+             py::arg("thres"),
+             D(peak_detector, set_threshold))
 
 
         .def("set_look_ahead",
@@ -59,21 +57,7 @@ void bind_peak_detector(py::module& m)
              D(peak_detector, set_look_ahead))
 
 
-        .def("set_calibration_window",
-             &peak_detector::set_calibration_window,
-             py::arg("calib_window"),
-             D(peak_detector, set_calibration_window))
-
-
-        .def("set_calibration_state",
-             &peak_detector::set_calibration_state,
-             py::arg("calib_state"),
-             D(peak_detector, set_calibration_state))
-
-
-        .def("threshold_factor_rise",
-             &peak_detector::threshold_factor_rise,
-             D(peak_detector, threshold_factor_rise))
+        .def("threshold", &peak_detector::threshold, D(peak_detector, threshold))
 
 
         .def("look_ahead", &peak_detector::look_ahead, D(peak_detector, look_ahead))

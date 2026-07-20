@@ -13,7 +13,8 @@ include(GrPlatform) #define LIB_SUFFIX
 list(APPEND lfmTools_sources
     LFM_On_Trigger_impl.cc
     LFM_Source_impl.cc
-    peak_detector_impl.cc )
+    peak_detector_impl.cc
+    )
 
 set(lfmTools_sources "${lfmTools_sources}" PARENT_SCOPE)
 if(NOT lfmTools_sources)
