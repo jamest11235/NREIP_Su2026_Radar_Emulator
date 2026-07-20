@@ -28,8 +28,8 @@ from gnuradio import uhd
 import time
 from gnuradio.qtgui import Range, RangeWidget
 from PyQt5 import QtCore
+import lfm_source_test_epy_block_0 as epy_block_0  # embedded python block
 import numpy as np
-import sip
 
 
 
@@ -160,153 +160,6 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.uhd_usrp_sink_0.set_antenna("TX/RX", 0)
         self.uhd_usrp_sink_0.set_bandwidth(samp_rate, 0)
         self.uhd_usrp_sink_0.set_gain(10, 0)
-        self.qtgui_time_sink_x_0_1 = qtgui.time_sink_c(
-            (int(samp_rate * PRI)), #size
-            samp_rate, #samp_rate
-            "Transmitted Signal", #name
-            1, #number of inputs
-            None # parent
-        )
-        self.qtgui_time_sink_x_0_1.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_1.set_y_axis(-1, 1)
-
-        self.qtgui_time_sink_x_0_1.set_y_label('Amplitude', "")
-
-        self.qtgui_time_sink_x_0_1.enable_tags(True)
-        self.qtgui_time_sink_x_0_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_1.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_1.enable_grid(False)
-        self.qtgui_time_sink_x_0_1.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_1.enable_control_panel(False)
-        self.qtgui_time_sink_x_0_1.enable_stem_plot(False)
-
-
-        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
-            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
-        widths = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        colors = ['blue', 'red', 'green', 'black', 'cyan',
-            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0]
-        styles = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1]
-
-
-        for i in range(2):
-            if len(labels[i]) == 0:
-                if (i % 2 == 0):
-                    self.qtgui_time_sink_x_0_1.set_line_label(i, "Re{{Data {0}}}".format(i/2))
-                else:
-                    self.qtgui_time_sink_x_0_1.set_line_label(i, "Im{{Data {0}}}".format(i/2))
-            else:
-                self.qtgui_time_sink_x_0_1.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_1.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_1.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_1.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_1.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_1.set_line_alpha(i, alphas[i])
-
-        self._qtgui_time_sink_x_0_1_win = sip.wrapinstance(self.qtgui_time_sink_x_0_1.qwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_time_sink_x_0_1_win)
-        self.qtgui_time_sink_x_0_0 = qtgui.time_sink_f(
-            (int(samp_rate * PRI)), #size
-            samp_rate, #samp_rate
-            "Radar Under Test Receive", #name
-            2, #number of inputs
-            None # parent
-        )
-        self.qtgui_time_sink_x_0_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_0.set_y_axis(-1, 1)
-
-        self.qtgui_time_sink_x_0_0.set_y_label('Amplitude', "")
-
-        self.qtgui_time_sink_x_0_0.enable_tags(True)
-        self.qtgui_time_sink_x_0_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_0.enable_grid(False)
-        self.qtgui_time_sink_x_0_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_0_0.enable_stem_plot(False)
-
-
-        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
-            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
-        widths = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        colors = ['blue', 'red', 'green', 'black', 'cyan',
-            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0]
-        styles = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1]
-
-
-        for i in range(2):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_0.set_line_alpha(i, alphas[i])
-
-        self._qtgui_time_sink_x_0_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_0.qwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_time_sink_x_0_0_win)
-        self.qtgui_time_sink_x_0 = qtgui.time_sink_f(
-            (int(samp_rate * PRI)), #size
-            samp_rate, #samp_rate
-            "Target Emulator Echo", #name
-            2, #number of inputs
-            None # parent
-        )
-        self.qtgui_time_sink_x_0.set_update_time(0.10)
-        self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
-
-        self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
-
-        self.qtgui_time_sink_x_0.enable_tags(True)
-        self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0.enable_autoscale(False)
-        self.qtgui_time_sink_x_0.enable_grid(False)
-        self.qtgui_time_sink_x_0.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0.enable_control_panel(False)
-        self.qtgui_time_sink_x_0.enable_stem_plot(False)
-
-
-        labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
-            'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
-        widths = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        colors = ['blue', 'red', 'green', 'black', 'cyan',
-            'magenta', 'yellow', 'dark red', 'dark green', 'dark blue']
-        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
-            1.0, 1.0, 1.0, 1.0, 1.0]
-        styles = [1, 1, 1, 1, 1,
-            1, 1, 1, 1, 1]
-        markers = [-1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1]
-
-
-        for i in range(2):
-            if len(labels[i]) == 0:
-                self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
-            else:
-                self.qtgui_time_sink_x_0.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
-
-        self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.qwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.lfmTools_peak_detector_0_0 = lfmTools.peak_detector(0.01, (int(PRI * duty_cycle * samp_rate)))
         self.lfmTools_peak_detector_0 = lfmTools.peak_detector(0.1, (int(PRI * duty_cycle * samp_rate)))
         self.lfmTools_LFM_Source_0 = lfmTools.LFM_Source(bandwidth, duty_cycle, PRI, samp_rate, amplitude)
@@ -315,32 +168,23 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.fft_filter_xxx_0_0.declare_sample_delay(0)
         self.fft_filter_xxx_0 = filter.fft_filter_ccc(1, raw_filter / filter_energy, 1)
         self.fft_filter_xxx_0.declare_sample_delay(0)
-        self.blocks_complex_to_real_1 = blocks.complex_to_real(1)
+        self.epy_block_0 = epy_block_0.blk(file="delay.txt")
         self.blocks_complex_to_mag_1 = blocks.complex_to_mag(1)
         self.blocks_complex_to_mag_0 = blocks.complex_to_mag(1)
-        self.blocks_char_to_float_1 = blocks.char_to_float(1, 1)
-        self.blocks_char_to_float_0 = blocks.char_to_float(1, 1)
 
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.blocks_char_to_float_0, 0), (self.qtgui_time_sink_x_0, 0))
-        self.connect((self.blocks_char_to_float_1, 0), (self.qtgui_time_sink_x_0_0, 0))
         self.connect((self.blocks_complex_to_mag_0, 0), (self.lfmTools_peak_detector_0, 0))
-        self.connect((self.blocks_complex_to_mag_0, 0), (self.qtgui_time_sink_x_0, 1))
         self.connect((self.blocks_complex_to_mag_1, 0), (self.lfmTools_peak_detector_0_0, 0))
-        self.connect((self.blocks_complex_to_real_1, 0), (self.qtgui_time_sink_x_0_0, 1))
         self.connect((self.fft_filter_xxx_0, 0), (self.blocks_complex_to_mag_0, 0))
         self.connect((self.fft_filter_xxx_0_0, 0), (self.blocks_complex_to_mag_1, 0))
         self.connect((self.lfmTools_LFM_On_Trigger_0, 0), (self.uhd_usrp_sink_0_0, 0))
-        self.connect((self.lfmTools_LFM_Source_0, 0), (self.qtgui_time_sink_x_0_1, 0))
         self.connect((self.lfmTools_LFM_Source_0, 0), (self.uhd_usrp_sink_0, 0))
-        self.connect((self.lfmTools_peak_detector_0, 0), (self.blocks_char_to_float_0, 0))
         self.connect((self.lfmTools_peak_detector_0, 0), (self.lfmTools_LFM_On_Trigger_0, 0))
-        self.connect((self.lfmTools_peak_detector_0_0, 0), (self.blocks_char_to_float_1, 0))
+        self.connect((self.lfmTools_peak_detector_0_0, 0), (self.epy_block_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.fft_filter_xxx_0, 0))
-        self.connect((self.uhd_usrp_source_0_0, 0), (self.blocks_complex_to_real_1, 0))
         self.connect((self.uhd_usrp_source_0_0, 0), (self.fft_filter_xxx_0_0, 0))
 
 
@@ -364,9 +208,6 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.lfmTools_LFM_Source_0.set_samp_rate(self.samp_rate)
         self.lfmTools_peak_detector_0.set_look_ahead((int(self.PRI * self.duty_cycle * self.samp_rate)))
         self.lfmTools_peak_detector_0_0.set_look_ahead((int(self.PRI * self.duty_cycle * self.samp_rate)))
-        self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_1.set_samp_rate(self.samp_rate)
         self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_sink_0.set_bandwidth(self.samp_rate, 0)
         self.uhd_usrp_sink_0_0.set_samp_rate(self.samp_rate)
