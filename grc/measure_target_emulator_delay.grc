@@ -45,7 +45,7 @@ blocks:
     start: 1e-6
     step: 1e-6
     stop: '1'
-    value: '0.5'
+    value: '0.01'
     widget: counter
   states:
     bus_sink: false
@@ -66,7 +66,7 @@ blocks:
     start: '0'
     step: '0.02'
     stop: '1.01'
-    value: '0.5'
+    value: '0.4'
     widget: counter_slider
   states:
     bus_sink: false
@@ -105,11 +105,11 @@ blocks:
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
-    start: '0.0001'
-    step: '0.0001'
-    stop: '0.001'
-    value: '0.0005'
-    widget: counter_slider
+    start: '0'
+    step: '0.0000001'
+    stop: '1'
+    value: '0.01'
+    widget: counter
   states:
     bus_sink: false
     bus_source: false
@@ -278,7 +278,7 @@ blocks:
     bus_structure: null
     coordinate: [1192, 696.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: blocks_complex_to_real_0
   id: blocks_complex_to_real
   parameters:
@@ -308,7 +308,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [992, 808.0]
+    coordinate: [1200, 768.0]
     rotation: 0
     state: disabled
 - name: epy_block_0
@@ -335,8 +335,8 @@ blocks:
       \                 self.started = True\n                self.counter = 0\n  \
       \          self.counter += 1\n        return len(input_items[0])\n        \n\
       \    def stop(self):\n        with open(self.file, \"w\") as file:\n       \
-      \     for item in self.peaks:\n                file.write(f\"{item}\\n\")\n\
-      \        return True\n"
+      \     for item in self.peaks:\n                if item < 800000:\n         \
+      \           file.write(f\"{item}\\n\")\n        return True\n"
     affinity: ''
     alias: ''
     comment: ''
@@ -352,7 +352,7 @@ blocks:
     bus_structure: null
     coordinate: [1632, 632.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: fft_filter_xxx_0
   id: fft_filter_xxx
   parameters:
@@ -390,7 +390,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [968, 672.0]
+    coordinate: [944, 672.0]
     rotation: 0
     state: enabled
 - name: import_0
@@ -670,7 +670,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1768, 752.0]
+    coordinate: [1768, 768.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0_1
@@ -2195,7 +2195,7 @@ blocks:
     bus_structure: null
     coordinate: [632, 628.0]
     rotation: 0
-    state: true
+    state: enabled
 
 connections:
 - [blocks_char_to_float_0, '0', qtgui_time_sink_x_0, '0']

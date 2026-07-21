@@ -70,9 +70,9 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 2e6
-        self.PRI = PRI = 0.5
+        self.PRI = PRI = 0.01
         self.samples_per_pri = samples_per_pri = int(PRI * samp_rate)
-        self.duty_cycle = duty_cycle = 0.0005
+        self.duty_cycle = duty_cycle = 0.01
         self.bandwidth = bandwidth = 200e3
         self.t_signal = t_signal = np.arange(samples_per_pri) / samp_rate
         self.samples_per_pulse = samples_per_pulse = int(PRI * samp_rate * duty_cycle)
@@ -80,22 +80,22 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.raw_filter = raw_filter = np.exp(-ramp_rate*np.pi*(t_signal[:samples_per_pulse]**2)*1.j)[::-1]
         self.start_freq = start_freq = 1.9e9
         self.filter_energy = filter_energy = np.sum(np.abs(raw_filter)**2)
-        self.amplitude = amplitude = 0.5
+        self.amplitude = amplitude = 0.4
 
         ##################################################
         # Blocks
         ##################################################
 
-        self._duty_cycle_range = Range(0.0001, 0.001, 0.0001, 0.0005, 200)
-        self._duty_cycle_win = RangeWidget(self._duty_cycle_range, self.set_duty_cycle, "Duty Cycle", "counter_slider", float, QtCore.Qt.Horizontal)
+        self._duty_cycle_range = Range(0, 1, 0.0000001, 0.01, 200)
+        self._duty_cycle_win = RangeWidget(self._duty_cycle_range, self.set_duty_cycle, "Duty Cycle", "counter", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._duty_cycle_win)
         self._bandwidth_range = Range(1e3, 5e6, 1, 200e3, 200)
         self._bandwidth_win = RangeWidget(self._bandwidth_range, self.set_bandwidth, "Bandwidth", "counter", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._bandwidth_win)
-        self._amplitude_range = Range(0, 1.01, 0.02, 0.5, 200)
+        self._amplitude_range = Range(0, 1.01, 0.02, 0.4, 200)
         self._amplitude_win = RangeWidget(self._amplitude_range, self.set_amplitude, "Amplitude", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._amplitude_win)
-        self._PRI_range = Range(1e-6, 1, 1e-6, 0.5, 200)
+        self._PRI_range = Range(1e-6, 1, 1e-6, 0.01, 200)
         self._PRI_win = RangeWidget(self._PRI_range, self.set_PRI, "Pulse Repetition Interval", "counter", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._PRI_win)
         self.uhd_usrp_source_0_0 = uhd.usrp_source(

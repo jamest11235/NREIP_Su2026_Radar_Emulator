@@ -1,1 +1,4 @@
 custom_oot_modules/gr-lfmTools/build/
+custom_oot_modules/gr-lfm_experimental/build/
+custom_oot_modules/gr-lfmTools/.conda/
+custom_oot_modules/gr-lfm_experimental/.conda/

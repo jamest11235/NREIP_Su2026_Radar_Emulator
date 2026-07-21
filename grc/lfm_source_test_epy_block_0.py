@@ -43,5 +43,6 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
     def stop(self):
         with open(self.file, "w") as file:
             for item in self.peaks:
-                file.write(f"{item}\n")
+                if item < 800000:
+                    file.write(f"{item}\n")
         return True
