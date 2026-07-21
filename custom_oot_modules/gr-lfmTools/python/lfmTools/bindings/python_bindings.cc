@@ -25,6 +25,7 @@ namespace py = pybind11;
     void bind_LFM_Source(py::module& m);
     void bind_peak_detector(py::module& m);
     void bind_peak_file_sink(py::module& m);
+    void bind_peak_detector_2(py::module& m);
 // ) END BINDING_FUNCTION_PROTOTYPES
 
 
@@ -57,5 +58,6 @@ PYBIND11_MODULE(lfmTools_python, m)
     bind_LFM_Source(m);
     bind_peak_detector(m);
     bind_peak_file_sink(m);
+    bind_peak_detector_2(m);
     // ) END BINDING_FUNCTION_CALLS
 }

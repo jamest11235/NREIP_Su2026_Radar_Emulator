@@ -45,7 +45,7 @@ blocks:
     start: 1e-6
     step: 1e-6
     stop: '1'
-    value: '0.001'
+    value: '0.2'
     widget: counter
   states:
     bus_sink: false
@@ -87,7 +87,7 @@ blocks:
     start: 1e3
     step: '1'
     stop: 5e6
-    value: 200e3
+    value: 500e3
     widget: counter
   states:
     bus_sink: false
@@ -108,7 +108,7 @@ blocks:
     start: '0'
     step: '0.0000001'
     stop: '1'
-    value: '0.1'
+    value: '0.0001'
     widget: counter
   states:
     bus_sink: false
@@ -246,7 +246,7 @@ blocks:
     bus_structure: null
     coordinate: [1632, 688.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_complex_to_mag_0
   id: blocks_complex_to_mag
   parameters:
@@ -278,7 +278,7 @@ blocks:
     bus_structure: null
     coordinate: [1192, 696.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_complex_to_real_0
   id: blocks_complex_to_real
   parameters:
@@ -324,9 +324,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1200, 768.0]
+    coordinate: [1336, 832.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: fft_filter_xxx_0
   id: fft_filter_xxx
   parameters:
@@ -364,9 +364,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [944, 672.0]
+    coordinate: [952, 664.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: import_0
   id: import
   parameters:
@@ -425,7 +425,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    look_ahead: int(PRI * duty_cycle * samp_rate)
+    look_ahead: int(2 * PRI * duty_cycle * samp_rate)
     maxoutbuf: '0'
     minoutbuf: '0'
     threshold: '0.1'
@@ -433,7 +433,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [752, 400.0]
+    coordinate: [752, 368.0]
     rotation: 0
     state: enabled
 - name: lfmTools_peak_detector_0_0
@@ -442,7 +442,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    look_ahead: int(PRI * duty_cycle * samp_rate)
+    look_ahead: int(2 * PRI * duty_cycle * samp_rate)
     maxoutbuf: '0'
     minoutbuf: '0'
     threshold: '0.01'
@@ -452,7 +452,7 @@ blocks:
     bus_structure: null
     coordinate: [1376, 680.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: lfmTools_peak_file_sink_0
   id: lfmTools_peak_file_sink
   parameters:
@@ -466,7 +466,7 @@ blocks:
     bus_structure: null
     coordinate: [1632, 632.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_time_sink_x_0
   id: qtgui_time_sink_x
   parameters:
@@ -598,8 +598,8 @@ blocks:
     gui_hint: 2, 0, 1, 1
     label1: Peak Detection
     label10: Signal 10
-    label2: RUT RX
-    label3: Signal 3
+    label2: Matched Filter
+    label3: RUT RX
     label4: Signal 4
     label5: Signal 5
     label6: Signal 6
@@ -618,7 +618,7 @@ blocks:
     marker8: '-1'
     marker9: '-1'
     name: '"Radar Under Test Receive"'
-    nconnections: '2'
+    nconnections: '3'
     size: int(samp_rate * PRI)
     srate: samp_rate
     stemplot: 'False'
@@ -658,9 +658,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1768, 768.0]
+    coordinate: [1856, 728.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_time_sink_x_0_1
   id: qtgui_time_sink_x
   parameters:
@@ -1309,7 +1309,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1376, 516.0]
+    coordinate: [1360, 484.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -2183,16 +2183,17 @@ blocks:
     bus_structure: null
     coordinate: [632, 628.0]
     rotation: 0
-    state: disabled
+    state: enabled
 
 connections:
 - [blocks_char_to_float_0, '0', qtgui_time_sink_x_0, '0']
 - [blocks_char_to_float_1, '0', qtgui_time_sink_x_0_0, '0']
 - [blocks_complex_to_mag_0, '0', lfmTools_peak_detector_0, '0']
 - [blocks_complex_to_mag_1, '0', lfmTools_peak_detector_0_0, '0']
+- [blocks_complex_to_mag_1, '0', qtgui_time_sink_x_0_0, '1']
 - [blocks_complex_to_real_0, '0', qtgui_time_sink_x_0, '1']
 - [blocks_complex_to_real_0_0, '0', qtgui_time_sink_x_0, '2']
-- [blocks_complex_to_real_1, '0', qtgui_time_sink_x_0_0, '1']
+- [blocks_complex_to_real_1, '0', qtgui_time_sink_x_0_0, '2']
 - [fft_filter_xxx_0, '0', blocks_complex_to_mag_0, '0']
 - [fft_filter_xxx_0_0, '0', blocks_complex_to_mag_1, '0']
 - [lfmTools_LFM_On_Trigger_0, '0', blocks_complex_to_real_0, '0']
