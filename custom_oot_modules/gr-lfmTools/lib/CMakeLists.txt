@@ -14,7 +14,7 @@ list(APPEND lfmTools_sources
     LFM_On_Trigger_impl.cc
     LFM_Source_impl.cc
     peak_detector_impl.cc
-    )
+    peak_file_sink_impl.cc )
 
 set(lfmTools_sources "${lfmTools_sources}" PARENT_SCOPE)
 if(NOT lfmTools_sources)

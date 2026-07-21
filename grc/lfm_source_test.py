@@ -28,7 +28,6 @@ from gnuradio import uhd
 import time
 from gnuradio.qtgui import Range, RangeWidget
 from PyQt5 import QtCore
-import lfm_source_test_epy_block_0 as epy_block_0  # embedded python block
 import numpy as np
 
 
@@ -160,6 +159,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.uhd_usrp_sink_0.set_antenna("TX/RX", 0)
         self.uhd_usrp_sink_0.set_bandwidth(samp_rate, 0)
         self.uhd_usrp_sink_0.set_gain(10, 0)
+        self.lfmTools_peak_file_sink_0 = lfmTools.peak_file_sink('/home/jtang/NREIP_JHTANG/grc/delay.txt')
         self.lfmTools_peak_detector_0_0 = lfmTools.peak_detector(0.01, (int(PRI * duty_cycle * samp_rate)))
         self.lfmTools_peak_detector_0 = lfmTools.peak_detector(0.1, (int(PRI * duty_cycle * samp_rate)))
         self.lfmTools_LFM_Source_0 = lfmTools.LFM_Source(bandwidth, duty_cycle, PRI, samp_rate, amplitude)
@@ -168,7 +168,6 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.fft_filter_xxx_0_0.declare_sample_delay(0)
         self.fft_filter_xxx_0 = filter.fft_filter_ccc(1, raw_filter / filter_energy, 1)
         self.fft_filter_xxx_0.declare_sample_delay(0)
-        self.epy_block_0 = epy_block_0.blk(file="delay.txt")
         self.blocks_complex_to_mag_1 = blocks.complex_to_mag(1)
         self.blocks_complex_to_mag_0 = blocks.complex_to_mag(1)
 
@@ -183,7 +182,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.connect((self.lfmTools_LFM_On_Trigger_0, 0), (self.uhd_usrp_sink_0_0, 0))
         self.connect((self.lfmTools_LFM_Source_0, 0), (self.uhd_usrp_sink_0, 0))
         self.connect((self.lfmTools_peak_detector_0, 0), (self.lfmTools_LFM_On_Trigger_0, 0))
-        self.connect((self.lfmTools_peak_detector_0_0, 0), (self.epy_block_0, 0))
+        self.connect((self.lfmTools_peak_detector_0_0, 0), (self.lfmTools_peak_file_sink_0, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.fft_filter_xxx_0, 0))
         self.connect((self.uhd_usrp_source_0_0, 0), (self.fft_filter_xxx_0_0, 0))
 

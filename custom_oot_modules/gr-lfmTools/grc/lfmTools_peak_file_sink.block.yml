@@ -1,0 +1,20 @@
+id: lfmTools_peak_file_sink
+label: Peak File Sink
+category: '[LFM Tools]'
+
+templates:
+  imports: from gnuradio import lfmTools
+  make: lfmTools.peak_file_sink(${file})
+
+parameters:
+- id: file
+  label: File
+  dtype: string
+  default: delay.txt
+
+inputs:
+- label: in0
+  domain: stream
+  dtype: byte
+
+file_format: 1

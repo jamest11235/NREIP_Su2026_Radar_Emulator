@@ -14,5 +14,5 @@ install(FILES
     LFM_On_Trigger.h
     LFM_Source.h
     peak_detector.h
-    DESTINATION include/gnuradio/lfmTools
+    peak_file_sink.h DESTINATION include/gnuradio/lfmTools
 )
