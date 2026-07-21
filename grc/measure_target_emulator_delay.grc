@@ -45,7 +45,7 @@ blocks:
     start: 1e-6
     step: 1e-6
     stop: '1'
-    value: '0.01'
+    value: '0.001'
     widget: counter
   states:
     bus_sink: false
@@ -108,7 +108,7 @@ blocks:
     start: '0'
     step: '0.0000001'
     stop: '1'
-    value: '0.01'
+    value: '0.1'
     widget: counter
   states:
     bus_sink: false
@@ -227,9 +227,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1152, 248.0]
+    coordinate: [976, 320.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: blocks_char_to_float_1
   id: blocks_char_to_float
   parameters:
@@ -278,7 +278,7 @@ blocks:
     bus_structure: null
     coordinate: [1192, 696.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: blocks_complex_to_real_0
   id: blocks_complex_to_real
   parameters:
@@ -292,9 +292,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1368, 432.0]
+    coordinate: [1184, 416.0]
     rotation: 0
-    state: disabled
+    state: enabled
+- name: blocks_complex_to_real_0_0
+  id: blocks_complex_to_real
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1184, 456.0]
+    rotation: 0
+    state: enabled
 - name: blocks_complex_to_real_1
   id: blocks_complex_to_real
   parameters:
@@ -350,7 +366,7 @@ blocks:
     bus_structure: null
     coordinate: [944, 672.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: import_0
   id: import
   parameters:
@@ -380,7 +396,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1160, 400.0]
+    coordinate: [976, 384.0]
     rotation: 0
     state: true
 - name: lfmTools_LFM_Source_0
@@ -417,7 +433,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [840, 400.0]
+    coordinate: [752, 400.0]
     rotation: 0
     state: enabled
 - name: lfmTools_peak_detector_0_0
@@ -436,7 +452,7 @@ blocks:
     bus_structure: null
     coordinate: [1376, 680.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: lfmTools_peak_file_sink_0
   id: lfmTools_peak_file_sink
   parameters:
@@ -450,7 +466,7 @@ blocks:
     bus_structure: null
     coordinate: [1632, 632.0]
     rotation: 0
-    state: true
+    state: disabled
 - name: qtgui_time_sink_x_0
   id: qtgui_time_sink_x
   parameters:
@@ -482,11 +498,11 @@ blocks:
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
-    gui_hint: ''
-    label1: Signal 1
+    gui_hint: 1, 0, 1, 1
+    label1: Peak Detection
     label10: Signal 10
-    label2: Signal 2
-    label3: Signal 3
+    label2: TX Signal
+    label3: RX Signal
     label4: Signal 4
     label5: Signal 5
     label6: Signal 6
@@ -505,7 +521,7 @@ blocks:
     marker8: '-1'
     marker9: '-1'
     name: '"Target Emulator Echo"'
-    nconnections: '2'
+    nconnections: '3'
     size: int(samp_rate * PRI)
     srate: samp_rate
     stemplot: 'False'
@@ -545,9 +561,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1528, 248.0]
+    coordinate: [1360, 384.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_time_sink_x_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -579,10 +595,10 @@ blocks:
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
-    gui_hint: ''
-    label1: Signal 1
+    gui_hint: 2, 0, 1, 1
+    label1: Peak Detection
     label10: Signal 10
-    label2: Signal 2
+    label2: RUT RX
     label3: Signal 3
     label4: Signal 4
     label5: Signal 5
@@ -602,7 +618,7 @@ blocks:
     marker8: '-1'
     marker9: '-1'
     name: '"Radar Under Test Receive"'
-    nconnections: '1'
+    nconnections: '2'
     size: int(samp_rate * PRI)
     srate: samp_rate
     stemplot: 'False'
@@ -676,7 +692,7 @@ blocks:
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
-    gui_hint: ''
+    gui_hint: 0, 0, 1, 1
     label1: Signal 1
     label10: Signal 10
     label2: Signal 2
@@ -700,7 +716,7 @@ blocks:
     marker9: '-1'
     name: '"Transmitted Signal"'
     nconnections: '1'
-    size: int(samp_rate * PRI)
+    size: int(samp_rate * PRI * duty_cycle)
     srate: samp_rate
     stemplot: 'False'
     style1: '1'
@@ -741,7 +757,7 @@ blocks:
     bus_structure: null
     coordinate: [240, 160.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: uhd_usrp_sink_0
   id: uhd_usrp_sink
   parameters:
@@ -1295,7 +1311,7 @@ blocks:
     bus_structure: null
     coordinate: [1376, 516.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: uhd_usrp_source_0
   id: uhd_usrp_source
   parameters:
@@ -2167,15 +2183,16 @@ blocks:
     bus_structure: null
     coordinate: [632, 628.0]
     rotation: 0
-    state: enabled
+    state: disabled
 
 connections:
 - [blocks_char_to_float_0, '0', qtgui_time_sink_x_0, '0']
 - [blocks_char_to_float_1, '0', qtgui_time_sink_x_0_0, '0']
 - [blocks_complex_to_mag_0, '0', lfmTools_peak_detector_0, '0']
-- [blocks_complex_to_mag_0, '0', qtgui_time_sink_x_0, '1']
 - [blocks_complex_to_mag_1, '0', lfmTools_peak_detector_0_0, '0']
 - [blocks_complex_to_real_0, '0', qtgui_time_sink_x_0, '1']
+- [blocks_complex_to_real_0_0, '0', qtgui_time_sink_x_0, '2']
+- [blocks_complex_to_real_1, '0', qtgui_time_sink_x_0_0, '1']
 - [fft_filter_xxx_0, '0', blocks_complex_to_mag_0, '0']
 - [fft_filter_xxx_0_0, '0', blocks_complex_to_mag_1, '0']
 - [lfmTools_LFM_On_Trigger_0, '0', blocks_complex_to_real_0, '0']
@@ -2186,6 +2203,7 @@ connections:
 - [lfmTools_peak_detector_0, '0', lfmTools_LFM_On_Trigger_0, '0']
 - [lfmTools_peak_detector_0_0, '0', blocks_char_to_float_1, '0']
 - [lfmTools_peak_detector_0_0, '0', lfmTools_peak_file_sink_0, '0']
+- [uhd_usrp_source_0, '0', blocks_complex_to_real_0_0, '0']
 - [uhd_usrp_source_0, '0', fft_filter_xxx_0, '0']
 - [uhd_usrp_source_0_0, '0', blocks_complex_to_real_1, '0']
 - [uhd_usrp_source_0_0, '0', fft_filter_xxx_0_0, '0']
