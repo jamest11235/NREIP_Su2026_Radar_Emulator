@@ -1,6 +1,0 @@
-/*!
- * \defgroup block GNU Radio LFM_EXPERIMENTAL C++ Signal Processing Blocks
- * \brief All C++ blocks that can be used from the LFM_EXPERIMENTAL GNU Radio
- *        module are listed here or in the subcategories below.
- *
- */
