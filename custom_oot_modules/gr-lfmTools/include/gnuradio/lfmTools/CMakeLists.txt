@@ -15,5 +15,6 @@ install(FILES
     LFM_Source.h
     peak_detector.h
     peak_file_sink.h
-    DESTINATION include/gnuradio/lfmTools
+    tag_advance.h
+    tag_delay.h DESTINATION include/gnuradio/lfmTools
 )

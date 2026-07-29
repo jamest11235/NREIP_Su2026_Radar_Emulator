@@ -13,8 +13,8 @@
 /* If manual edits are made, the following tags should be modified accordingly.    */
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
-/* BINDTOOL_HEADER_FILE(peak_detector.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(4ea3dc6d4079ace3997ab2e32ada4fee)                     */
+/* BINDTOOL_HEADER_FILE(tag_delay.h)                                        */
+/* BINDTOOL_HEADER_FILE_HASH(00804f6661c53a86880242e06800c7a4)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,38 +23,32 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/lfmTools/peak_detector.h>
+#include <gnuradio/lfmTools/tag_delay.h>
 // pydoc.h is automatically generated in the build directory
-#include <peak_detector_pydoc.h>
+#include <tag_delay_pydoc.h>
 
-void bind_peak_detector(py::module& m)
+void bind_tag_delay(py::module& m)
 {
 
-    using peak_detector = ::gr::lfmTools::peak_detector;
+    using tag_delay = ::gr::lfmTools::tag_delay;
 
 
-    py::class_<peak_detector,
+    py::class_<tag_delay,
                gr::sync_block,
                gr::block,
                gr::basic_block,
-               std::shared_ptr<peak_detector>>(m, "peak_detector", D(peak_detector))
+               std::shared_ptr<tag_delay>>(m, "tag_delay", D(tag_delay))
 
-        .def(py::init(&peak_detector::make),
-             py::arg("alpha") = 0.97999999999999998,
-             py::arg("look_ahead") = 100,
-             D(peak_detector, make))
+        .def(py::init(&tag_delay::make), py::arg("delay_samples") = 0, D(tag_delay, make))
 
 
-        .def("set_alpha",
-             &peak_detector::set_alpha,
-             py::arg("alp"),
-             D(peak_detector, set_alpha))
+        .def("set_delay_samples",
+             &tag_delay::set_delay_samples,
+             py::arg("delay_samples"),
+             D(tag_delay, set_delay_samples))
 
 
-        .def("set_look_ahead",
-             &peak_detector::set_look_ahead,
-             py::arg("look"),
-             D(peak_detector, set_look_ahead))
+        .def("delay_samples", &tag_delay::delay_samples, D(tag_delay, delay_samples))
 
         ;
 }

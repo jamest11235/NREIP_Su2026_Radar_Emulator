@@ -32,13 +32,11 @@ public:
      * class. lfmTools::peak_detector::make is the public interface for
      * creating new instances.
      */
-    static sptr make(float threshold = 0.01,
+    static sptr make(float alpha = 0.98,
                      int look_ahead = 100);
 
-    virtual void set_threshold(float thres) = 0;
+    virtual void set_alpha(float alp) = 0;
     virtual void set_look_ahead(int look) = 0;
-    virtual float threshold() = 0;
-    virtual int look_ahead() = 0;
 
 };
 

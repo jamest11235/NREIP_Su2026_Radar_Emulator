@@ -13,8 +13,8 @@
 /* If manual edits are made, the following tags should be modified accordingly.    */
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
-/* BINDTOOL_HEADER_FILE(peak_detector.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(4ea3dc6d4079ace3997ab2e32ada4fee)                     */
+/* BINDTOOL_HEADER_FILE(tag_advance.h)                                        */
+/* BINDTOOL_HEADER_FILE_HASH(ed3c0f8b075ecfffc2f4aaa9e4ba1be0)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -23,38 +23,36 @@
 
 namespace py = pybind11;
 
-#include <gnuradio/lfmTools/peak_detector.h>
+#include <gnuradio/lfmTools/tag_advance.h>
 // pydoc.h is automatically generated in the build directory
-#include <peak_detector_pydoc.h>
+#include <tag_advance_pydoc.h>
 
-void bind_peak_detector(py::module& m)
+void bind_tag_advance(py::module& m)
 {
 
-    using peak_detector = ::gr::lfmTools::peak_detector;
+    using tag_advance = ::gr::lfmTools::tag_advance;
 
 
-    py::class_<peak_detector,
+    py::class_<tag_advance,
                gr::sync_block,
                gr::block,
                gr::basic_block,
-               std::shared_ptr<peak_detector>>(m, "peak_detector", D(peak_detector))
+               std::shared_ptr<tag_advance>>(m, "tag_advance", D(tag_advance))
 
-        .def(py::init(&peak_detector::make),
-             py::arg("alpha") = 0.97999999999999998,
-             py::arg("look_ahead") = 100,
-             D(peak_detector, make))
-
-
-        .def("set_alpha",
-             &peak_detector::set_alpha,
-             py::arg("alp"),
-             D(peak_detector, set_alpha))
+        .def(py::init(&tag_advance::make),
+             py::arg("advance_samples"),
+             D(tag_advance, make))
 
 
-        .def("set_look_ahead",
-             &peak_detector::set_look_ahead,
-             py::arg("look"),
-             D(peak_detector, set_look_ahead))
+        .def("set_advance_samples",
+             &tag_advance::set_advance_samples,
+             py::arg("advance_samples"),
+             D(tag_advance, set_advance_samples))
+
+
+        .def("advance_samples",
+             &tag_advance::advance_samples,
+             D(tag_advance, advance_samples))
 
         ;
 }

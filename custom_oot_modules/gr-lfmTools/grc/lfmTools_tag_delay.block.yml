@@ -1,0 +1,27 @@
+id: lfmTools_tag_delay
+label: Tag Delay
+category: '[LFM Tools]'
+
+parameters:
+- id: delay_samples
+  label: Delay Samples
+  dtype: int
+  default: '0'
+
+templates:
+  imports: from gnuradio import lfmTools
+  make: lfmTools.tag_delay(${delay_samples})
+  callbacks:
+  - set_delay_samples(${delay_samples})
+
+inputs:
+- label: in0
+  domain: stream
+  dtype: float
+
+outputs:
+- label: out0
+  domain: stream
+  dtype: float
+
+file_format: 1

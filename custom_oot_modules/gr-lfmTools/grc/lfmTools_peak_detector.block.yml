@@ -4,9 +4,9 @@ category: '[LFM Tools]'
 
 templates:
   imports: from gnuradio import lfmTools
-  make: lfmTools.peak_detector(${threshold}, ${look_ahead})
+  make: lfmTools.peak_detector(${alpha}, ${look_ahead})
   callbacks:
-  - set_threshold(${threshold})
+  - set_alpha(${alpha})
   - set_look_ahead(${look_ahead})
   
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
@@ -16,10 +16,10 @@ templates:
 #     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
 #     * default
 parameters:
-- id: threshold
-  label: Threshold
+- id: alpha
+  label: Alpha
   dtype: float
-  default: 0.01
+  default: 0.98
 - id: look_ahead
   label: Look Ahead
   dtype: int
@@ -39,16 +39,16 @@ inputs:
 - label: in0
   domain: stream
   dtype: float
-#- label: ...
-#  domain: ...
-#  dtype: ...
+- label: reset
+  domain: message
+  optional: true
 #  vlen: ...
 #  optional: ...
 
 outputs:
 - label: out0
   domain: stream
-  dtype: byte
+  dtype: float
 
 #  'file_format' specifies the version of the GRC yml format used in the file
 #  and should usually not be changed.
