@@ -1,0 +1,29 @@
+id: lfmTools_reset_tagger
+label: reset_tagger
+category: '[LFM Tools]'
+
+templates:
+  imports: from gnuradio import lfmTools
+  make: lfmTools.reset_tagger(${wait})
+
+parameters:
+- id: wait
+  label: Wait Samples
+  dtype: int
+  default: 0
+
+inputs:
+- domain: stream
+  name: in
+  type: complex
+
+- domain: message
+  name: reset
+  optional: true
+
+outputs:
+- domain: stream
+  name: out
+  type: complex
+
+file_format: 1

@@ -15,12 +15,12 @@ templates:
   - set_delay_samples(${delay_samples})
 
 inputs:
-- label: in0
+- label: in
   domain: stream
   dtype: float
 
 outputs:
-- label: out0
+- label: out
   domain: stream
   dtype: float
 

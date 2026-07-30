@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(peak_detector.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(4ea3dc6d4079ace3997ab2e32ada4fee)                     */
+/* BINDTOOL_HEADER_FILE_HASH(43f45ca6f742848cca9d069c4cf1ac70)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -42,6 +42,7 @@ void bind_peak_detector(py::module& m)
         .def(py::init(&peak_detector::make),
              py::arg("alpha") = 0.97999999999999998,
              py::arg("look_ahead") = 100,
+             py::arg("key") = "peak",
              D(peak_detector, make))
 
 
@@ -55,6 +56,10 @@ void bind_peak_detector(py::module& m)
              &peak_detector::set_look_ahead,
              py::arg("look"),
              D(peak_detector, set_look_ahead))
+
+
+        .def(
+            "set_key", &peak_detector::set_key, py::arg("key"), D(peak_detector, set_key))
 
         ;
 }

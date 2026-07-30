@@ -13,6 +13,7 @@ from packaging.version import Version as StrictVersion
 from PyQt5 import Qt
 from gnuradio import qtgui
 from gnuradio import blocks
+import pmt
 from gnuradio import filter
 from gnuradio.filter import firdes
 from gnuradio import gr
@@ -70,36 +71,41 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         # Variables
         ##################################################
         self.samp_rate = samp_rate = 2e6
-        self.PRI = PRI = 0.1
+        self.PRI = PRI = 0.0001
         self.samples_per_pri = samples_per_pri = int(PRI * samp_rate)
-        self.duty_cycle = duty_cycle = 0.001
-        self.bandwidth = bandwidth = 300e3
+        self.duty_cycle = duty_cycle = 0.4
+        self.bandwidth = bandwidth = 400e3
         self.t_signal = t_signal = np.arange(samples_per_pri) / samp_rate
         self.samples_per_pulse = samples_per_pulse = int(PRI * samp_rate * duty_cycle)
         self.ramp_rate = ramp_rate = bandwidth / (PRI * duty_cycle)
         self.raw_filter = raw_filter = np.exp(-ramp_rate*np.pi*(t_signal[:samples_per_pulse]**2)*1.j)[::-1]
-        self.start_freq = start_freq = 1.9e9
-        self.sample_delay = sample_delay = 0
+        self.start_freq = start_freq = 2.0e9
+        self.reset = reset = 0
         self.filter_energy = filter_energy = np.sum(np.abs(raw_filter)**2)
+        self.delay = delay = 0
         self.amplitude = amplitude = 0.4
 
         ##################################################
         # Blocks
         ##################################################
 
-        self._sample_delay_range = Range(0, 200, 1, 0, 200)
-        self._sample_delay_win = RangeWidget(self._sample_delay_range, self.set_sample_delay, "Sample_Delay", "counter_slider", int, QtCore.Qt.Horizontal)
-        self.top_layout.addWidget(self._sample_delay_win)
-        self._duty_cycle_range = Range(0, 1, 0.0000001, 0.001, 200)
+        self._duty_cycle_range = Range(0, 1, 0.01, 0.4, 200)
         self._duty_cycle_win = RangeWidget(self._duty_cycle_range, self.set_duty_cycle, "Duty Cycle", "counter", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._duty_cycle_win)
-        self._bandwidth_range = Range(1e3, 5e6, 1, 300e3, 200)
+        self._delay_range = Range(0, 200, 50, 0, 200)
+        self._delay_win = RangeWidget(self._delay_range, self.set_delay, "Delay", "counter", int, QtCore.Qt.Horizontal)
+        self.top_grid_layout.addWidget(self._delay_win, 3, 0, 1, 1)
+        for r in range(3, 4):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(0, 1):
+            self.top_grid_layout.setColumnStretch(c, 1)
+        self._bandwidth_range = Range(1e3, 5e6, 1, 400e3, 200)
         self._bandwidth_win = RangeWidget(self._bandwidth_range, self.set_bandwidth, "Bandwidth", "counter", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._bandwidth_win)
         self._amplitude_range = Range(0, 1.01, 0.02, 0.4, 200)
         self._amplitude_win = RangeWidget(self._amplitude_range, self.set_amplitude, "Amplitude", "counter_slider", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._amplitude_win)
-        self._PRI_range = Range(1e-6, 1, 1e-6, 0.1, 200)
+        self._PRI_range = Range(1e-6, 1, 1e-6, 0.0001, 200)
         self._PRI_win = RangeWidget(self._PRI_range, self.set_PRI, "Pulse Repetition Interval", "counter", float, QtCore.Qt.Horizontal)
         self.top_layout.addWidget(self._PRI_win)
         self.uhd_usrp_source_0 = uhd.usrp_source(
@@ -118,6 +124,23 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_antenna("RX2", 0)
         self.uhd_usrp_source_0.set_bandwidth(samp_rate, 0)
         self.uhd_usrp_source_0.set_gain(10, 0)
+        self.uhd_usrp_sink_0_0 = uhd.usrp_sink(
+            ",".join(('addr=192.168.10.5', '')),
+            uhd.stream_args(
+                cpu_format="fc32",
+                args='',
+                channels=list(range(0,1)),
+            ),
+            "",
+        )
+        self.uhd_usrp_sink_0_0.set_clock_source('external', 0)
+        self.uhd_usrp_sink_0_0.set_samp_rate(samp_rate)
+        # No synchronization enforced.
+
+        self.uhd_usrp_sink_0_0.set_center_freq(start_freq, 0)
+        self.uhd_usrp_sink_0_0.set_antenna("TX/RX", 0)
+        self.uhd_usrp_sink_0_0.set_bandwidth(samp_rate, 0)
+        self.uhd_usrp_sink_0_0.set_gain(10, 0)
         self.uhd_usrp_sink_0 = uhd.usrp_sink(
             ",".join(('addr=192.168.110.2', '')),
             uhd.stream_args(
@@ -135,25 +158,35 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.uhd_usrp_sink_0.set_antenna("TX/RX", 0)
         self.uhd_usrp_sink_0.set_bandwidth(samp_rate, 0)
         self.uhd_usrp_sink_0.set_gain(10, 0)
-        self.qtgui_time_sink_x_0_1 = qtgui.time_sink_c(
+        _reset_push_button = Qt.QPushButton('')
+        _reset_push_button = Qt.QPushButton('reset')
+        self._reset_choices = {'Pressed': 1, 'Released': 0}
+        _reset_push_button.pressed.connect(lambda: self.set_reset(self._reset_choices['Pressed']))
+        _reset_push_button.released.connect(lambda: self.set_reset(self._reset_choices['Released']))
+        self.top_grid_layout.addWidget(_reset_push_button, 0, 0, 1, 1)
+        for r in range(0, 1):
+            self.top_grid_layout.setRowStretch(r, 1)
+        for c in range(0, 1):
+            self.top_grid_layout.setColumnStretch(c, 1)
+        self.qtgui_time_sink_x_0_1_0 = qtgui.time_sink_c(
             (int(samp_rate * PRI)), #size
             samp_rate, #samp_rate
-            "Transmitted Signal", #name
+            "Received Signal", #name
             1, #number of inputs
             None # parent
         )
-        self.qtgui_time_sink_x_0_1.set_update_time(0.10)
-        self.qtgui_time_sink_x_0_1.set_y_axis(-1, 1)
+        self.qtgui_time_sink_x_0_1_0.set_update_time(0.10)
+        self.qtgui_time_sink_x_0_1_0.set_y_axis(-1, 1)
 
-        self.qtgui_time_sink_x_0_1.set_y_label('Amplitude', "")
+        self.qtgui_time_sink_x_0_1_0.set_y_label('Amplitude', "")
 
-        self.qtgui_time_sink_x_0_1.enable_tags(True)
-        self.qtgui_time_sink_x_0_1.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.qtgui_time_sink_x_0_1.enable_autoscale(False)
-        self.qtgui_time_sink_x_0_1.enable_grid(False)
-        self.qtgui_time_sink_x_0_1.enable_axis_labels(True)
-        self.qtgui_time_sink_x_0_1.enable_control_panel(False)
-        self.qtgui_time_sink_x_0_1.enable_stem_plot(False)
+        self.qtgui_time_sink_x_0_1_0.enable_tags(True)
+        self.qtgui_time_sink_x_0_1_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.qtgui_time_sink_x_0_1_0.enable_autoscale(False)
+        self.qtgui_time_sink_x_0_1_0.enable_grid(False)
+        self.qtgui_time_sink_x_0_1_0.enable_axis_labels(True)
+        self.qtgui_time_sink_x_0_1_0.enable_control_panel(False)
+        self.qtgui_time_sink_x_0_1_0.enable_stem_plot(False)
 
 
         labels = ['Signal 1', 'Signal 2', 'Signal 3', 'Signal 4', 'Signal 5',
@@ -173,20 +206,20 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         for i in range(2):
             if len(labels[i]) == 0:
                 if (i % 2 == 0):
-                    self.qtgui_time_sink_x_0_1.set_line_label(i, "Re{{Data {0}}}".format(i/2))
+                    self.qtgui_time_sink_x_0_1_0.set_line_label(i, "Re{{Data {0}}}".format(i/2))
                 else:
-                    self.qtgui_time_sink_x_0_1.set_line_label(i, "Im{{Data {0}}}".format(i/2))
+                    self.qtgui_time_sink_x_0_1_0.set_line_label(i, "Im{{Data {0}}}".format(i/2))
             else:
-                self.qtgui_time_sink_x_0_1.set_line_label(i, labels[i])
-            self.qtgui_time_sink_x_0_1.set_line_width(i, widths[i])
-            self.qtgui_time_sink_x_0_1.set_line_color(i, colors[i])
-            self.qtgui_time_sink_x_0_1.set_line_style(i, styles[i])
-            self.qtgui_time_sink_x_0_1.set_line_marker(i, markers[i])
-            self.qtgui_time_sink_x_0_1.set_line_alpha(i, alphas[i])
+                self.qtgui_time_sink_x_0_1_0.set_line_label(i, labels[i])
+            self.qtgui_time_sink_x_0_1_0.set_line_width(i, widths[i])
+            self.qtgui_time_sink_x_0_1_0.set_line_color(i, colors[i])
+            self.qtgui_time_sink_x_0_1_0.set_line_style(i, styles[i])
+            self.qtgui_time_sink_x_0_1_0.set_line_marker(i, markers[i])
+            self.qtgui_time_sink_x_0_1_0.set_line_alpha(i, alphas[i])
 
-        self._qtgui_time_sink_x_0_1_win = sip.wrapinstance(self.qtgui_time_sink_x_0_1.qwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_1_win, 0, 0, 1, 1)
-        for r in range(0, 1):
+        self._qtgui_time_sink_x_0_1_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0_1_0.qwidget(), Qt.QWidget)
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_1_0_win, 1, 0, 1, 1)
+        for r in range(1, 2):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
@@ -194,7 +227,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
             (int(samp_rate * PRI)), #size
             samp_rate, #samp_rate
             "Target Emulator Echo", #name
-            1, #number of inputs
+            2, #number of inputs
             None # parent
         )
         self.qtgui_time_sink_x_0.set_update_time(0.10)
@@ -211,7 +244,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.qtgui_time_sink_x_0.enable_stem_plot(False)
 
 
-        labels = ['Peak Detection', 'TX Signal', 'RX Signal', 'Signal 4', 'Signal 5',
+        labels = ['Before Cancellation', 'After Cancellation', 'RX Signal', 'Signal 4', 'Signal 5',
             'Signal 6', 'Signal 7', 'Signal 8', 'Signal 9', 'Signal 10']
         widths = [1, 1, 1, 1, 1,
             1, 1, 1, 1, 1]
@@ -225,7 +258,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
             -1, -1, -1, -1, -1]
 
 
-        for i in range(1):
+        for i in range(2):
             if len(labels[i]) == 0:
                 self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
             else:
@@ -237,32 +270,46 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
             self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
 
         self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.qwidget(), Qt.QWidget)
-        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_win, 1, 0, 1, 1)
-        for r in range(1, 2):
+        self.top_grid_layout.addWidget(self._qtgui_time_sink_x_0_win, 2, 0, 1, 1)
+        for r in range(2, 3):
             self.top_grid_layout.setRowStretch(r, 1)
         for c in range(0, 1):
             self.top_grid_layout.setColumnStretch(c, 1)
-        self.lfmTools_tag_delay_0 = lfmTools.tag_delay(sample_delay)
-        self.lfmTools_tag_advance_0 = lfmTools.tag_advance(sample_delay)
-        self.lfmTools_peak_detector_0 = lfmTools.peak_detector(0.98, (int(2 * PRI * duty_cycle * samp_rate)))
+        self.lfmTools_tag_delay_0 = lfmTools.tag_delay((int(PRI * duty_cycle * samp_rate)))
+        self.lfmTools_tag_advance_0 = lfmTools.tag_advance((int(PRI * duty_cycle * samp_rate)))
+        self.lfmTools_peak_detector_0_1 = lfmTools.peak_detector(0.9, (int(2 * PRI * duty_cycle * samp_rate)), 'Target')
+        self.lfmTools_peak_detector_0 = lfmTools.peak_detector(0.90, (int(2 * PRI * duty_cycle * samp_rate)), 'RUT')
+        self.lfmTools_peak_cancel_0 = lfmTools.peak_cancel(bandwidth, duty_cycle * PRI, samp_rate, 'RUT')
         self.lfmTools_LFM_Source_0 = lfmTools.LFM_Source(bandwidth, duty_cycle, PRI, samp_rate, amplitude)
+        self.lfmTools_LFM_On_Trigger_0_1 = lfmTools.LFM_On_Trigger(bandwidth, PRI * duty_cycle, samp_rate, amplitude)
         self.fft_filter_xxx_0 = filter.fft_filter_ccc(1, raw_filter / filter_energy, 1)
         self.fft_filter_xxx_0.declare_sample_delay(0)
+        self.blocks_var_to_msg_0 = blocks.var_to_msg_pair('reset')
+        self.blocks_message_strobe_0 = blocks.message_strobe(pmt.cons(pmt.intern("wait"), pmt.from_long(delay)), 1000)
         self.blocks_complex_to_mag_0 = blocks.complex_to_mag(1)
 
 
         ##################################################
         # Connections
         ##################################################
+        self.msg_connect((self.blocks_message_strobe_0, 'strobe'), (self.lfmTools_LFM_On_Trigger_0_1, 'wait'))
+        self.msg_connect((self.blocks_var_to_msg_0, 'msgout'), (self.lfmTools_peak_detector_0, 'reset'))
+        self.msg_connect((self.blocks_var_to_msg_0, 'msgout'), (self.lfmTools_peak_detector_0_1, 'reset'))
         self.msg_connect((self.lfmTools_LFM_Source_0, 'reset'), (self.lfmTools_peak_detector_0, 'reset'))
+        self.msg_connect((self.lfmTools_LFM_Source_0, 'reset'), (self.lfmTools_peak_detector_0_1, 'reset'))
         self.connect((self.blocks_complex_to_mag_0, 0), (self.lfmTools_peak_detector_0, 0))
         self.connect((self.fft_filter_xxx_0, 0), (self.blocks_complex_to_mag_0, 0))
-        self.connect((self.lfmTools_LFM_Source_0, 0), (self.qtgui_time_sink_x_0_1, 0))
+        self.connect((self.lfmTools_LFM_On_Trigger_0_1, 0), (self.uhd_usrp_sink_0_0, 0))
         self.connect((self.lfmTools_LFM_Source_0, 0), (self.uhd_usrp_sink_0, 0))
+        self.connect((self.lfmTools_peak_cancel_0, 0), (self.lfmTools_tag_delay_0, 0))
+        self.connect((self.lfmTools_peak_detector_0, 0), (self.lfmTools_LFM_On_Trigger_0_1, 0))
         self.connect((self.lfmTools_peak_detector_0, 0), (self.lfmTools_tag_advance_0, 0))
-        self.connect((self.lfmTools_tag_advance_0, 0), (self.lfmTools_tag_delay_0, 0))
-        self.connect((self.lfmTools_tag_delay_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.lfmTools_peak_detector_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.lfmTools_peak_detector_0_1, 0), (self.qtgui_time_sink_x_0, 1))
+        self.connect((self.lfmTools_tag_advance_0, 0), (self.lfmTools_peak_cancel_0, 0))
+        self.connect((self.lfmTools_tag_delay_0, 0), (self.lfmTools_peak_detector_0_1, 0))
         self.connect((self.uhd_usrp_source_0, 0), (self.fft_filter_xxx_0, 0))
+        self.connect((self.uhd_usrp_source_0, 0), (self.qtgui_time_sink_x_0_1_0, 0))
 
 
     def closeEvent(self, event):
@@ -281,12 +328,19 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.set_samples_per_pri(int(self.PRI * self.samp_rate))
         self.set_samples_per_pulse(int(self.PRI * self.samp_rate * self.duty_cycle))
         self.set_t_signal(np.arange(self.samples_per_pri) / self.samp_rate)
+        self.lfmTools_LFM_On_Trigger_0_1.set_samp_rate(self.samp_rate)
         self.lfmTools_LFM_Source_0.set_samp_rate(self.samp_rate)
+        self.lfmTools_peak_cancel_0.set_samp_rate(self.samp_rate)
         self.lfmTools_peak_detector_0.set_look_ahead((int(2 * self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_peak_detector_0_1.set_look_ahead((int(2 * self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_tag_advance_0.set_advance_samples((int(self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_tag_delay_0.set_delay_samples((int(self.PRI * self.duty_cycle * self.samp_rate)))
         self.qtgui_time_sink_x_0.set_samp_rate(self.samp_rate)
-        self.qtgui_time_sink_x_0_1.set_samp_rate(self.samp_rate)
+        self.qtgui_time_sink_x_0_1_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_sink_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_sink_0.set_bandwidth(self.samp_rate, 0)
+        self.uhd_usrp_sink_0_0.set_samp_rate(self.samp_rate)
+        self.uhd_usrp_sink_0_0.set_bandwidth(self.samp_rate, 0)
         self.uhd_usrp_source_0.set_samp_rate(self.samp_rate)
         self.uhd_usrp_source_0.set_bandwidth(self.samp_rate, 0)
 
@@ -298,8 +352,13 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.set_ramp_rate(self.bandwidth / (self.PRI * self.duty_cycle))
         self.set_samples_per_pri(int(self.PRI * self.samp_rate))
         self.set_samples_per_pulse(int(self.PRI * self.samp_rate * self.duty_cycle))
+        self.lfmTools_LFM_On_Trigger_0_1.set_pulse_width(self.PRI * self.duty_cycle)
         self.lfmTools_LFM_Source_0.set_pri(self.PRI)
+        self.lfmTools_peak_cancel_0.set_pulse_width(self.duty_cycle * self.PRI)
         self.lfmTools_peak_detector_0.set_look_ahead((int(2 * self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_peak_detector_0_1.set_look_ahead((int(2 * self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_tag_advance_0.set_advance_samples((int(self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_tag_delay_0.set_delay_samples((int(self.PRI * self.duty_cycle * self.samp_rate)))
 
     def get_samples_per_pri(self):
         return self.samples_per_pri
@@ -315,8 +374,13 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.duty_cycle = duty_cycle
         self.set_ramp_rate(self.bandwidth / (self.PRI * self.duty_cycle))
         self.set_samples_per_pulse(int(self.PRI * self.samp_rate * self.duty_cycle))
+        self.lfmTools_LFM_On_Trigger_0_1.set_pulse_width(self.PRI * self.duty_cycle)
         self.lfmTools_LFM_Source_0.set_duty_cycle(self.duty_cycle)
+        self.lfmTools_peak_cancel_0.set_pulse_width(self.duty_cycle * self.PRI)
         self.lfmTools_peak_detector_0.set_look_ahead((int(2 * self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_peak_detector_0_1.set_look_ahead((int(2 * self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_tag_advance_0.set_advance_samples((int(self.PRI * self.duty_cycle * self.samp_rate)))
+        self.lfmTools_tag_delay_0.set_delay_samples((int(self.PRI * self.duty_cycle * self.samp_rate)))
 
     def get_bandwidth(self):
         return self.bandwidth
@@ -324,7 +388,9 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
     def set_bandwidth(self, bandwidth):
         self.bandwidth = bandwidth
         self.set_ramp_rate(self.bandwidth / (self.PRI * self.duty_cycle))
+        self.lfmTools_LFM_On_Trigger_0_1.set_bandwidth(self.bandwidth)
         self.lfmTools_LFM_Source_0.set_bandwidth(self.bandwidth)
+        self.lfmTools_peak_cancel_0.set_bandwidth(self.bandwidth)
 
     def get_t_signal(self):
         return self.t_signal
@@ -361,15 +427,15 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
     def set_start_freq(self, start_freq):
         self.start_freq = start_freq
         self.uhd_usrp_sink_0.set_center_freq(self.start_freq, 0)
+        self.uhd_usrp_sink_0_0.set_center_freq(self.start_freq, 0)
         self.uhd_usrp_source_0.set_center_freq(self.start_freq, 0)
 
-    def get_sample_delay(self):
-        return self.sample_delay
+    def get_reset(self):
+        return self.reset
 
-    def set_sample_delay(self, sample_delay):
-        self.sample_delay = sample_delay
-        self.lfmTools_tag_advance_0.set_advance_samples(self.sample_delay)
-        self.lfmTools_tag_delay_0.set_delay_samples(self.sample_delay)
+    def set_reset(self, reset):
+        self.reset = reset
+        self.blocks_var_to_msg_0.variable_changed(self.reset)
 
     def get_filter_energy(self):
         return self.filter_energy
@@ -378,11 +444,19 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.filter_energy = filter_energy
         self.fft_filter_xxx_0.set_taps(self.raw_filter / self.filter_energy)
 
+    def get_delay(self):
+        return self.delay
+
+    def set_delay(self, delay):
+        self.delay = delay
+        self.blocks_message_strobe_0.set_msg(pmt.cons(pmt.intern("wait"), pmt.from_long(self.delay)))
+
     def get_amplitude(self):
         return self.amplitude
 
     def set_amplitude(self, amplitude):
         self.amplitude = amplitude
+        self.lfmTools_LFM_On_Trigger_0_1.set_amplitude(self.amplitude)
         self.lfmTools_LFM_Source_0.set_amplitude(self.amplitude)
 
 

@@ -4,10 +4,11 @@ category: '[LFM Tools]'
 
 templates:
   imports: from gnuradio import lfmTools
-  make: lfmTools.peak_detector(${alpha}, ${look_ahead})
+  make: lfmTools.peak_detector(${alpha}, ${look_ahead}, ${key})
   callbacks:
   - set_alpha(${alpha})
   - set_look_ahead(${look_ahead})
+  - set_key(${key})
   
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
@@ -24,6 +25,10 @@ parameters:
   label: Look Ahead
   dtype: int
   default: 100
+- id: key
+  label: Key
+  dtype: string
+  default: peak
 #- id: ...
 #  label: ...
 #  dtype: ...
@@ -36,7 +41,7 @@ parameters:
 #      * vlen (optional - data stream vector length. Default is 1)
 #      * optional (optional - set to 1 for optional inputs. Default is 0)
 inputs:
-- label: in0
+- label: in
   domain: stream
   dtype: float
 - label: reset
@@ -46,7 +51,7 @@ inputs:
 #  optional: ...
 
 outputs:
-- label: out0
+- label: out
   domain: stream
   dtype: float
 

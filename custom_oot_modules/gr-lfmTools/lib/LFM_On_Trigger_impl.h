@@ -18,21 +18,15 @@ class LFM_On_Trigger_impl : public LFM_On_Trigger
 {
 private:
     // Nothing to declare in this block.
-    float _bandwidth;
-    float _pulse_width;
-    float _samp_rate;
-    float _amplitude;
-    std::vector<gr_complex> _pulse;
-    bool _d_trigger;
+    float d_bandwidth;
+    float d_pulse_width;
+    float d_samp_rate;
+    float d_amplitude;
+    std::vector<gr_complex> d_pulse;
+    bool d_trigger;
+    int d_wait;
     
-    float _last;
-    // edge case where the rising edge happens from one buffer to another, e.g. prev_buffer_in[-1] = 0 and next_buffer_out[0] = 1
-
     void generate_pulse();
-    
-    const int _MAX_PULSE_SAMPLES = 2e6 * 1e-2;
-    
-    std::vector<int> _rising;
 
 public:
     LFM_On_Trigger_impl(float bandwidth, float pulse_width, float samp_rate, float amplitude);

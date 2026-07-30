@@ -15,12 +15,12 @@ parameters:
   default: 0
   
 inputs:
-- label: in0
+- label: in
   domain: stream
   dtype: float
   
 outputs:
-- label: out0
+- label: out
   domain: stream
   dtype: float
 

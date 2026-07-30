@@ -27,6 +27,8 @@ namespace py = pybind11;
     void bind_peak_file_sink(py::module& m);
     void bind_tag_advance(py::module& m);
     void bind_tag_delay(py::module& m);
+    void bind_peak_cancel(py::module& m);
+    void bind_reset_tagger(py::module& m);
 // ) END BINDING_FUNCTION_PROTOTYPES
 
 
@@ -61,5 +63,7 @@ PYBIND11_MODULE(lfmTools_python, m)
     bind_peak_file_sink(m);
     bind_tag_advance(m);
     bind_tag_delay(m);
+    bind_peak_cancel(m);
+    bind_reset_tagger(m);
     // ) END BINDING_FUNCTION_CALLS
 }

@@ -1,1 +1,2 @@
 ./include/gnuradio/lfmTools/LFM_Source.hError occurred while running CASTXML xml file does not exist
+./include/gnuradio/lfmTools/peak_cancel.hError occurred while running CASTXML xml file does not exist

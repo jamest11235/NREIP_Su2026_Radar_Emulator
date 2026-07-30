@@ -9,6 +9,7 @@
 #define INCLUDED_LFMTOOLS_PEAK_DETECTOR_IMPL_H
 
 #include <gnuradio/lfmTools/peak_detector.h>
+#include <mutex>
 
 namespace gr {
 namespace lfmTools {
@@ -18,17 +19,22 @@ class peak_detector_impl : public peak_detector
 private:
     int d_look_ahead;
     float d_alpha;
+    std::string d_key;
     float d_thres;
     bool d_found;
+    bool d_reset_requested;
     void reset();
-     
+    int d_wait;
+    
 public:
     peak_detector_impl(float alpha,
-                      int look_ahead);
+                      int look_ahead,
+                      std::string key);
     ~peak_detector_impl() override;
 
     void set_alpha(float alp) override;
     void set_look_ahead(int look) override;
+    void set_key(std::string key) override;
 
     int work(int noutput_items,
              gr_vector_const_void_star& input_items,

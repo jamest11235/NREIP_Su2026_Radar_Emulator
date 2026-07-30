@@ -1,16 +1,17 @@
-id: lfmTools_LFM_On_Trigger
-label: LFM On Trigger
+id: lfmTools_peak_cancel
+label: Peak Cancel
 category: '[LFM Tools]'
 
 templates:
   imports: from gnuradio import lfmTools
-  make: lfmTools.LFM_On_Trigger(${bandwidth}, ${pulse_width}, ${samp_rate}, ${amplitude})
+  make: lfmTools.peak_cancel(${bandwidth}, ${pulse_width}, ${samp_rate}, ${key})
   callbacks:
   - set_bandwidth(${bandwidth})
   - set_pulse_width(${pulse_width})
   - set_samp_rate(${samp_rate})
-  - set_amplitude(${amplitude})
-
+  - set_key(${key})
+  - set_latency(${latency})
+  
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
 #     * id (makes the value accessible as keyname, e.g. in the make entry)
@@ -25,15 +26,15 @@ parameters:
 - id: pulse_width
   label: Pulse Width
   dtype: float
-  default: 500e-6
+  default: 100e-6
 - id: samp_rate
   label: Sample Rate
   dtype: float
   default: 2e6
-- id: amplitude
-  label: Amplitude
-  dtype: float
-  default: 0.5
+- id: key
+  label: Key
+  dtype: string
+  default: peak
 
 #  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
 #  Keys include:
@@ -46,14 +47,11 @@ inputs:
 - label: in
   domain: stream
   dtype: float
-- label: wait
-  domain: message
-  optional: true
 
 outputs:
 - label: out
   domain: stream
-  dtype: complex
+  dtype: float
 
 #  'file_format' specifies the version of the GRC yml format used in the file
 #  and should usually not be changed.

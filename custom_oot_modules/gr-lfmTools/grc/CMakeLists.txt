@@ -11,5 +11,7 @@ install(FILES
     lfmTools_peak_detector.block.yml
     lfmTools_peak_file_sink.block.yml
     lfmTools_tag_advance.block.yml
-    lfmTools_tag_delay.block.yml DESTINATION share/gnuradio/grc/blocks
+    lfmTools_tag_delay.block.yml
+    lfmTools_peak_cancel.block.yml
+    lfmTools_reset_tagger.block.yml DESTINATION share/gnuradio/grc/blocks
 )
