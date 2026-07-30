@@ -15,13 +15,10 @@
  */
 
 
-
- static const char *__doc_gr_lfmTools_reset_tagger = R"doc()doc";
-
-
- static const char *__doc_gr_lfmTools_reset_tagger_reset_tagger = R"doc()doc";
+static const char* __doc_gr_lfmTools_reset_tagger = R"doc()doc";
 
 
- static const char *__doc_gr_lfmTools_reset_tagger_make = R"doc()doc";
+static const char* __doc_gr_lfmTools_reset_tagger_reset_tagger = R"doc()doc";
 
-  
+
+static const char* __doc_gr_lfmTools_reset_tagger_make = R"doc()doc";

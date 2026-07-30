@@ -44,9 +44,6 @@ inputs:
 - label: in
   domain: stream
   dtype: float
-- label: reset
-  domain: message
-  optional: true
 #  vlen: ...
 #  optional: ...
 

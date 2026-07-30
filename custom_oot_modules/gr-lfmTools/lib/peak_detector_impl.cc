@@ -37,21 +37,12 @@ peak_detector_impl::peak_detector_impl(float alpha,
       d_alpha(alpha),
       d_key(key),
       d_thres(0),
-      d_found(false),
-      d_reset_requested(true),
-      d_wait(0) {
-    message_port_register_in(pmt::mp("reset"));
-    set_msg_handler(pmt::mp("reset"),
-        [this](pmt::pmt_t msg) {
-            this->reset();
-        });
-}
+      d_found(false) {}
 
 void peak_detector_impl::reset() {
     set_output_multiple(1);
     d_found = false;
     d_thres = 0;
-    d_wait = 0;
 }
 
  void peak_detector_impl::set_alpha(float alp) {
@@ -80,15 +71,17 @@ int peak_detector_impl::work(int noutput_items,
     const input_type* iptr = (const input_type*)input_items[0];
     output_type* optr = (output_type*)output_items[0];
 
-    if (d_wait < 500000) {
-        int consumed = std::min(500000 - d_wait, noutput_items);
-        std::memcpy(optr, iptr, consumed * sizeof(output_type));
-        d_wait += consumed;
-        return consumed;
-    }
+    std::vector<tag_t> tags;
+    get_tags_in_range(tags, 0, nitems_read(0), nitems_read(0) + noutput_items, pmt::mp("reset"));
+    int tag_idx = tags.empty() ? -1 : static_cast<int>(tags[0].offset - nitems_read(0));
     
     if (d_found == false) { // have not crossed threshold yet
         for (int i = 0; i < noutput_items; i++) {
+            if (i == tag_idx) {
+                reset();
+                std::memcpy(optr, iptr, (i + 1) * sizeof(output_type));
+                return i + 1;
+            }
             d_thres = std::max(iptr[i], d_thres);
             if (iptr[i] >  d_thres * d_alpha) {
                 d_found = true;
@@ -103,7 +96,12 @@ int peak_detector_impl::work(int noutput_items,
     } else if (noutput_items >= d_look_ahead) { // can complete in this call
         float peak_val = iptr[0];
         int peak_ind = 0;
-        for (int i = 1; i < d_look_ahead; i++) {
+        for (int i = 0; i < d_look_ahead; i++) {
+            if (i == tag_idx) {
+                reset();
+                std::memcpy(optr, iptr, (i + 1) * sizeof(output_type));
+                return i + 1;
+            }
             d_thres = std::max(iptr[i], d_thres);
             if (iptr[i] > peak_val) {
                 peak_val = iptr[i];

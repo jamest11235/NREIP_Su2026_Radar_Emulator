@@ -1,13 +1,13 @@
-#ifndef INCLUDED_YOUR_MODULE_RESET_TAGGER_H
-#define INCLUDED_YOUR_MODULE_RESET_TAGGER_H
+#ifndef INCLUDED_LFMTOOLS_RESET_TAGGER_H
+#define INCLUDED_LFMTOOLS_RESET_TAGGER_H
 
 #include <gnuradio/sync_block.h>
-#include <your_module/api.h>
+#include <gnuradio/lfmTools/api.h>
 
 namespace gr {
-namespace your_module {
+namespace lfmTools {
 
-class YOUR_MODULE_API reset_tagger : virtual public gr::sync_block
+class LFMTOOLS_API reset_tagger : virtual public gr::sync_block
 {
 public:
     typedef std::shared_ptr<reset_tagger> sptr;
@@ -15,7 +15,7 @@ public:
     static sptr make(uint64_t wait);
 };
 
-} // namespace your_module
+} // namespace lfmTools
 } // namespace gr
 
-#endif /* INCLUDED_YOUR_MODULE_RESET_TAGGER_H */
+#endif /* INCLUDED_LFMTOOLS_RESET_TAGGER_H */

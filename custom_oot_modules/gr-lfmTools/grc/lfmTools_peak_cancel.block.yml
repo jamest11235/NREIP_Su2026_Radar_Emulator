@@ -10,7 +10,6 @@ templates:
   - set_pulse_width(${pulse_width})
   - set_samp_rate(${samp_rate})
   - set_key(${key})
-  - set_latency(${latency})
   
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:

@@ -42,9 +42,6 @@ parameters:
   default: 0.5
 
 inputs: []
-#- label: in0
-#  domain: stream
-#  dtype: float
 
 outputs:
 - label: out
@@ -52,8 +49,6 @@ outputs:
   dtype: complex
 - label: reset
   domain: message
-  optional: true
-  
 
 #  'file_format' specifies the version of the GRC yml format used in the file
 #  and should usually not be changed.

@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(reset_tagger.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(5bd193811bd30e2a0a460a702885ebc1)                     */
+/* BINDTOOL_HEADER_FILE_HASH(fa963e7c3c5a2ce61d719762fe197c93)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -30,30 +30,17 @@ namespace py = pybind11;
 void bind_reset_tagger(py::module& m)
 {
 
-    using reset_tagger    = gr::lfmTools::reset_tagger;
+    using reset_tagger = ::gr::lfmTools::reset_tagger;
 
 
-    py::class_<reset_tagger, gr::sync_block, gr::block, gr::basic_block,
-        std::shared_ptr<reset_tagger>>(m, "reset_tagger", D(reset_tagger))
+    py::class_<reset_tagger,
+               gr::sync_block,
+               gr::block,
+               gr::basic_block,
+               std::shared_ptr<reset_tagger>>(m, "reset_tagger", D(reset_tagger))
 
-        .def(py::init(&reset_tagger::make),
-           D(reset_tagger,make)
-        )
-        
-
+        .def(py::init(&reset_tagger::make), py::arg("wait"), D(reset_tagger, make))
 
 
         ;
-
-
-
-
 }
-
-
-
-
-
-
-
-

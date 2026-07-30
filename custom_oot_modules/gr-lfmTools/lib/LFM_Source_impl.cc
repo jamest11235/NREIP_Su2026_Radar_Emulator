@@ -42,6 +42,7 @@ LFM_Source_impl::LFM_Source_impl(float bandwidth, float duty_cycle, float pri, f
       d_port(pmt::mp("reset")) {
     message_port_register_out(d_port);
     generate_signal();
+    message_port_pub(d_port, pmt::PMT_NIL);
 }
 
 void LFM_Source_impl::set_bandwidth(float bandwidth) {

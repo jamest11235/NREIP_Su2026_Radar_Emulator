@@ -1,11 +1,11 @@
-#ifndef INCLUDED_YOUR_MODULE_RESET_TAGGER_IMPL_H
-#define INCLUDED_YOUR_MODULE_RESET_TAGGER_IMPL_H
+#ifndef INCLUDED_LFMTOOLS_RESET_TAGGER_IMPL_H
+#define INCLUDED_LFMTOOLS_RESET_TAGGER_IMPL_H
 
-#include <your_module/reset_tagger.h>
+#include <gnuradio/lfmTools/reset_tagger.h>
 #include <atomic>
 
 namespace gr {
-namespace your_module {
+namespace lfmTools {
 
 class reset_tagger_impl : public reset_tagger
 {
@@ -24,7 +24,7 @@ public:
              gr_vector_void_star& output_items) override;
 };
 
-} // namespace your_module
+} // namespace lfmTools
 } // namespace gr
 
-#endif /* INCLUDED_YOUR_MODULE_RESET_TAGGER_IMPL_H */
+#endif /* INCLUDED_LFMTOOLS_RESET_TAGGER_IMPL_H */

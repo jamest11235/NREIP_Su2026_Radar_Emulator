@@ -22,9 +22,7 @@ private:
     std::string d_key;
     float d_thres;
     bool d_found;
-    bool d_reset_requested;
     void reset();
-    int d_wait;
     
 public:
     peak_detector_impl(float alpha,

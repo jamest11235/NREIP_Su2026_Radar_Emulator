@@ -3,7 +3,7 @@
 #include <cstring>
 
 namespace gr {
-namespace your_module {
+namespace lfmTools {
 
 reset_tagger::sptr reset_tagger::make(uint64_t wait)
 {
@@ -52,5 +52,5 @@ int reset_tagger_impl::work(int noutput_items,
     return noutput_items;
 }
 
-} // namespace your_module
+} // namespace lfmTools
 } // namespace gr

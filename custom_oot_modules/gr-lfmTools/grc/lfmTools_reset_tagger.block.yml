@@ -1,5 +1,5 @@
 id: lfmTools_reset_tagger
-label: reset_tagger
+label: Reset Tagger
 category: '[LFM Tools]'
 
 templates:
@@ -13,17 +13,15 @@ parameters:
   default: 0
 
 inputs:
-- domain: stream
-  name: in
-  type: complex
-
-- domain: message
-  name: reset
-  optional: true
+- label: in
+  domain: stream
+  dtype: complex
+- label: reset
+  domain: message
 
 outputs:
-- domain: stream
-  name: out
-  type: complex
+- label: out
+  domain: stream
+  dtype: complex
 
 file_format: 1
