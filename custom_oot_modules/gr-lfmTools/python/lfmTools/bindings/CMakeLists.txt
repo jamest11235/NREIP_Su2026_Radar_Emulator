@@ -35,7 +35,8 @@ list(APPEND lfmTools_python_files
     tag_advance_python.cc
     tag_delay_python.cc
     peak_cancel_python.cc
-    reset_tagger_python.cc python_bindings.cc)
+    reset_tagger_python.cc
+    python_bindings.cc)
 
 GR_PYBIND_MAKE_OOT(lfmTools
    ../../..

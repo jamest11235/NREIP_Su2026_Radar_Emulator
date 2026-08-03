@@ -42,14 +42,8 @@ LFM_On_Trigger_impl::LFM_On_Trigger_impl(float bandwidth, float pulse_width, flo
       d_pulse_width(pulse_width),
       d_samp_rate(samp_rate),
       d_amplitude(amplitude),
-      d_trigger(false),
-      d_wait(0) {
+      d_found(false) {
     generate_pulse();
-    message_port_register_in(pmt::mp("wait"));
-    set_msg_handler(pmt::mp("wait"),
-        [this](pmt::pmt_t msg) {
-            d_wait = static_cast<int>(pmt::to_long(pmt::cdr(msg)));
-        });
 }
 
 void LFM_On_Trigger_impl::set_bandwidth(float bandwidth) {
@@ -107,27 +101,27 @@ int LFM_On_Trigger_impl::work(int noutput_items,
             peaks[index] = true;
         }
     }
-
-    if (d_trigger) {
+    
+    if (d_found) {
         int pulse_size = d_pulse.size();
-        std::fill_n(out, d_wait, output_type{0.0f, 0.0f});
-        std::memcpy(out + d_wait,
+        std::memcpy(out,
             d_pulse.data(),
             pulse_size * sizeof(output_type));
-        d_trigger = false;
+        d_found = false;
         set_output_multiple(1);
-        return d_pulse.size() + d_wait;
+        return d_pulse.size();
     } else {
         for (int i = 0; i < noutput_items; i++) {
             out[i] = 0;
-            if (peaks[i] != 0) {
-                d_trigger = true;
-                set_output_multiple(d_wait + d_pulse.size());
-                return i;
+            if (peaks[i]) {
+                d_found = true;
+                set_output_multiple(d_pulse.size());
+                return i + 1;
             }
         }
         return noutput_items;
     }
+    return 0;
 }
 
 } /* namespace lfmTools */

@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(peak_detector.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(43f45ca6f742848cca9d069c4cf1ac70)                     */
+/* BINDTOOL_HEADER_FILE_HASH(5439d1f2d042b73ccebef6d356f09273)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -40,22 +40,22 @@ void bind_peak_detector(py::module& m)
                std::shared_ptr<peak_detector>>(m, "peak_detector", D(peak_detector))
 
         .def(py::init(&peak_detector::make),
-             py::arg("alpha") = 0.97999999999999998,
-             py::arg("look_ahead") = 100,
+             py::arg("thres") = 0.01,
+             py::arg("lookahead") = 100,
              py::arg("key") = "peak",
              D(peak_detector, make))
 
 
-        .def("set_alpha",
-             &peak_detector::set_alpha,
-             py::arg("alp"),
-             D(peak_detector, set_alpha))
+        .def("set_threshold",
+             &peak_detector::set_threshold,
+             py::arg("thres"),
+             D(peak_detector, set_threshold))
 
 
-        .def("set_look_ahead",
-             &peak_detector::set_look_ahead,
+        .def("set_lookahead",
+             &peak_detector::set_lookahead,
              py::arg("look"),
-             D(peak_detector, set_look_ahead))
+             D(peak_detector, set_lookahead))
 
 
         .def(

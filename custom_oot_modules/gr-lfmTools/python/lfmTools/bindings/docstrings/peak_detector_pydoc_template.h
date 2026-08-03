@@ -27,10 +27,10 @@ static const char* __doc_gr_lfmTools_peak_detector_peak_detector_1 = R"doc()doc"
 static const char* __doc_gr_lfmTools_peak_detector_make = R"doc()doc";
 
 
-static const char* __doc_gr_lfmTools_peak_detector_set_alpha = R"doc()doc";
+static const char* __doc_gr_lfmTools_peak_detector_set_threshold = R"doc()doc";
 
 
-static const char* __doc_gr_lfmTools_peak_detector_set_look_ahead = R"doc()doc";
+static const char* __doc_gr_lfmTools_peak_detector_set_lookahead = R"doc()doc";
 
 
 static const char* __doc_gr_lfmTools_peak_detector_set_key = R"doc()doc";

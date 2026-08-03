@@ -46,9 +46,6 @@ inputs:
 - label: in
   domain: stream
   dtype: float
-- label: wait
-  domain: message
-  optional: true
 
 outputs:
 - label: out

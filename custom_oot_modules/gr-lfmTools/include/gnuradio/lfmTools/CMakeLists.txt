@@ -18,5 +18,6 @@ install(FILES
     tag_advance.h
     tag_delay.h
     peak_cancel.h
-    reset_tagger.h DESTINATION include/gnuradio/lfmTools
+    reset_tagger.h
+    DESTINATION include/gnuradio/lfmTools
 )

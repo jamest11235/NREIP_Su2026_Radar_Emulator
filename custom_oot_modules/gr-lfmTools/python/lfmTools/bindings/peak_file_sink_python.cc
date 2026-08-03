@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(peak_file_sink.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(e75f8a3f733d4ddc7fc6cf9369bd9e4d)                     */
+/* BINDTOOL_HEADER_FILE_HASH(24470d94cd3b28057f7acb5d28de3710)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -41,6 +41,8 @@ void bind_peak_file_sink(py::module& m)
 
         .def(py::init(&peak_file_sink::make),
              py::arg("file") = "delay.txt",
+             py::arg("tx_peak_label") = "RUT",
+             py::arg("rx_peak_label") = "Target",
              D(peak_file_sink, make))
 
 

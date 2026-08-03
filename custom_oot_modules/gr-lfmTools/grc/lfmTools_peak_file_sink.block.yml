@@ -4,17 +4,30 @@ category: '[LFM Tools]'
 
 templates:
   imports: from gnuradio import lfmTools
-  make: lfmTools.peak_file_sink(${file})
+  make: lfmTools.peak_file_sink(${file}, ${tx}, ${rx})
 
 parameters:
 - id: file
   label: File
   dtype: string
   default: delay.txt
+- id: tx
+  label: TX Peak Label
+  dtype: string
+  default: RUT
+- id: rx
+  label: RX Peak Label
+  dtype: string
+  default: Target
 
 inputs:
-- label: in0
+- label: in
   domain: stream
-  dtype: byte
+  dtype: float
+
+outputs:
+- label: delay
+  domain: message
+  optional: true
 
 file_format: 1

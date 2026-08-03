@@ -20,10 +20,16 @@ class peak_file_sink_impl : public peak_file_sink
 private:
     int counter;
     std::string d_filename;
+    std::string d_tx_peak_label;
+    std::string d_rx_peak_label;
     std::vector<int> d_peaks;
+    const pmt::pmt_t d_port;
+    bool d_tx_last_seen;
 
 public:
-    peak_file_sink_impl(std::string file);
+    peak_file_sink_impl(std::string file,
+                        std::string tx_peak_label,
+                        std::string rx_peak_label);
     ~peak_file_sink_impl();
     
     bool stop() override;

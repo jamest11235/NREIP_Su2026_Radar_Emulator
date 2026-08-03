@@ -22,11 +22,10 @@ private:
     float d_pulse_width;
     float d_samp_rate;
     float d_amplitude;
+    bool d_found;
     std::vector<gr_complex> d_pulse;
-    bool d_trigger;
-    int d_wait;
-    
     void generate_pulse();
+
 
 public:
     LFM_On_Trigger_impl(float bandwidth, float pulse_width, float samp_rate, float amplitude);

@@ -4,10 +4,10 @@ category: '[LFM Tools]'
 
 templates:
   imports: from gnuradio import lfmTools
-  make: lfmTools.peak_detector(${alpha}, ${look_ahead}, ${key})
+  make: lfmTools.peak_detector(${thres}, ${lookahead}, ${key})
   callbacks:
-  - set_alpha(${alpha})
-  - set_look_ahead(${look_ahead})
+  - set_threshold(${thres})
+  - set_lookahead(${lookahead})
   - set_key(${key})
   
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
@@ -17,12 +17,12 @@ templates:
 #     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
 #     * default
 parameters:
-- id: alpha
-  label: Alpha
+- id: thres
+  label: Threshold
   dtype: float
-  default: 0.98
-- id: look_ahead
-  label: Look Ahead
+  default: 0.01
+- id: lookahead
+  label: Lookahead
   dtype: int
   default: 100
 - id: key

@@ -32,7 +32,9 @@ public:
      * class. lfmTools::peak_file_sink::make is the public interface for
      * creating new instances.
      */
-    static sptr make(std::string file = "delay.txt");
+    static sptr make(std::string file = "delay.txt",
+                     std::string tx_peak_label = "RUT",
+                     std::string rx_peak_label = "Target");
 };
 
 } // namespace lfmTools
