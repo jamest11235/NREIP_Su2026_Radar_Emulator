@@ -20,8 +20,8 @@ using output_type = float;
 /*
  * Sliding Window Implementation
  */
-peak_detector_impl::sliding_window_max::sliding_window_max(int window, uint64_t offset)
-    : d_i(offset), d_offset(offset), d_window_size(window) {}
+peak_detector_impl::sliding_window_max::sliding_window_max(int window, uint64_t offset, output_type thres)
+    : d_i(offset), d_offset(offset), d_window_size(window), d_thres(thres) {}
     
 std::pair<uint64_t, output_type> peak_detector_impl::sliding_window_max::get_current() const {
     return d_dq.front();
@@ -40,20 +40,24 @@ void peak_detector_impl::sliding_window_max::add_value(output_type val) {
         d_q.pop();
     }
     d_q.push({d_i, val});
+    
     while (!d_dq.empty() && d_dq.front().first <= d_i - d_window_size) {
         d_dq.pop_front();
     }
     while (!d_dq.empty() && val >= d_dq.back().second) {
         d_dq.pop_back();
     }
-    d_dq.push_back({d_i, val});
+    if (val >= d_thres) {
+        d_dq.push_back({d_i, val});
+    }
     d_i++;
 }
 
-void peak_detector_impl::sliding_window_max::clear(int window, uint64_t offset) {
+void peak_detector_impl::sliding_window_max::clear(int window, uint64_t offset, output_type thres) {
     d_i = offset;
     d_offset = offset;
     d_window_size = window;
+    d_thres = thres;
     d_dq.clear();
     d_q = {};
 }
@@ -81,8 +85,8 @@ peak_detector_impl::peak_detector_impl(float thres,
       d_thres(thres),
       d_lookahead(lookahead),
       d_key(key),
-      d_bf_max(lookahead, 0),
-      d_af_max(lookahead, lookahead) {}
+      d_bf_max(lookahead, 0, thres),
+      d_af_max(lookahead, lookahead, thres) {}
 
 void peak_detector_impl::set_lookahead(int look) {
     d_lookahead = look;
@@ -95,8 +99,8 @@ void peak_detector_impl::set_threshold(int thres) {
 }
 
 void peak_detector_impl::clear() {
-    d_bf_max.clear(d_lookahead, nitems_written(0));
-    d_af_max.clear(d_lookahead, nitems_written(0) + (uint64_t) d_lookahead);
+    d_bf_max.clear(d_lookahead, nitems_written(0), d_thres);
+    d_af_max.clear(d_lookahead, nitems_written(0) + (uint64_t) d_lookahead, d_thres);
 }
 
 void peak_detector_impl::set_key(std::string key) {

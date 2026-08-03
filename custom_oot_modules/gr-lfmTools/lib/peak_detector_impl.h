@@ -29,15 +29,16 @@ private:
         uint64_t d_i;
         uint64_t d_offset;
         int d_window_size;
+        output_type d_thres;
         std::queue<std::pair<uint64_t, output_type>> d_q;
         std::deque<std::pair<uint64_t, output_type>> d_dq;
     public:
-        sliding_window_max(int window, uint64_t offset);
+        sliding_window_max(int window, uint64_t offset, output_type thres);
         std::pair<uint64_t, output_type> get_current() const;
         std::pair<uint64_t, output_type> get_oldest() const;
         int get_size() const;
         void add_value(output_type val);
-        void clear(int window, uint64_t offset);
+        void clear(int window, uint64_t offset, output_type thres);
     };
     
     float d_thres;
