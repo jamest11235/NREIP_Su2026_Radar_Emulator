@@ -39,7 +39,8 @@ peak_file_sink_impl::peak_file_sink_impl(std::string file,
                      d_tx_peak_label(tx_peak_label),
                      d_rx_peak_label(rx_peak_label),
                      d_port(pmt::mp("delay")),
-                     d_tx_last_seen(false) {
+                     d_tx_last_seen(false),
+                     d_wait(false) {
     message_port_register_out(d_port);
 }
 
@@ -57,29 +58,38 @@ int peak_file_sink_impl::work(int noutput_items,
     uint64_t end   = start + noutput_items;
     get_tags_in_range(tags, 0, start, end);
     std::vector<std::string> peaks(noutput_items, "");
+    std::vector<bool> reset(noutput_items, false);
     for (const auto& tag : tags) {
         size_t index = tag.offset - start;
         if (index < peaks.size() && pmt::is_symbol(tag.key)) {
-            peaks[index] = pmt::symbol_to_string(tag.key);
+            std::string tag_key = pmt::symbol_to_string(tag.key);
+            if (tag_key == "reset") {
+                reset[index] = true;
+            } else {
+                peaks[index] = tag_key;
+            }
         }
     }
     
     for (int i = 0; i < noutput_items; i++) {
-        if (peaks[i] == d_rx_peak_label) {
-            if (d_tx_last_seen) {
-                d_peaks.push_back(counter);
-                if (d_peaks.size() > 1 && counter != d_peaks[d_peaks.size() - 2]) {
+        if (d_wait) {
+            if (reset[i]) {
+                d_wait = false;
+                d_tx_last_seen = false;
+                counter = 0;
+            }
+        } else {
+            if (peaks[i] == d_rx_peak_label && d_tx_last_seen) {
                 pmt::pmt_t key = pmt::string_to_symbol("delay");
                 pmt::pmt_t val = pmt::from_long(counter);
                 pmt::pmt_t msg = pmt::cons(key, val);
                 message_port_pub(d_port, msg);
-                }
+                d_wait = true;
+                d_tx_last_seen = false;
+            } else if (peaks[i] == d_tx_peak_label) {
+                counter = 0;
+                d_tx_last_seen = true;
             }
-            d_tx_last_seen = false;
-
-        } else if (peaks[i] == d_tx_peak_label) {
-            counter = 0;
-            d_tx_last_seen = true;
         }
         counter++;
     }

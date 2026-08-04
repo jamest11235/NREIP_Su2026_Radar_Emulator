@@ -25,6 +25,7 @@ private:
     std::vector<int> d_peaks;
     const pmt::pmt_t d_port;
     bool d_tx_last_seen;
+    bool d_wait;
 
 public:
     peak_file_sink_impl(std::string file,

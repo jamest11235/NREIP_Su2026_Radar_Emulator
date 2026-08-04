@@ -100,15 +100,15 @@ blocks:
   id: variable_qtgui_range
   parameters:
     comment: ''
-    gui_hint: 3, 0, 1, 1
-    label: Delay
+    gui_hint: 2, 0, 1, 1
+    label: Relative Delay
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: int
     start: '0'
     step: '50'
     stop: int(3 * PRI * samp_rate)
-    value: '0'
+    value: '200'
     widget: counter
   states:
     bus_sink: false
@@ -147,7 +147,19 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 480.0]
+    coordinate: [768, 480.0]
+    rotation: 0
+    state: enabled
+- name: measured_delay
+  id: variable
+  parameters:
+    comment: ''
+    value: 2.0e9
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1008, 8.0]
     rotation: 0
     state: enabled
 - name: ramp_rate
@@ -159,7 +171,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 696.0]
+    coordinate: [768, 696.0]
     rotation: 0
     state: enabled
 - name: raw_filter
@@ -171,7 +183,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 552.0]
+    coordinate: [768, 552.0]
     rotation: 0
     state: enabled
 - name: samp_rate
@@ -207,7 +219,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 768.0]
+    coordinate: [768, 768.0]
     rotation: 0
     state: enabled
 - name: start_freq
@@ -231,7 +243,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 624.0]
+    coordinate: [768, 624.0]
     rotation: 0
     state: enabled
 - name: blocks_complex_to_mag_0
@@ -247,7 +259,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [808, 416.0]
+    coordinate: [992, 416.0]
     rotation: 0
     state: true
 - name: blocks_delay_0
@@ -256,18 +268,32 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    delay: delay
+    delay: '0'
     maxoutbuf: '0'
     minoutbuf: '0'
     num_ports: '1'
-    showports: 'False'
+    showports: 'True'
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1408, 544.0]
+    coordinate: [1672, 552.0]
+    rotation: 0
+    state: true
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'True'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2568, 296.0]
     rotation: 0
     state: true
 - name: blocks_skiphead_0
@@ -285,7 +311,50 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1960, 408.0]
+    coordinate: [2120, 408.0]
+    rotation: 0
+    state: true
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "import pmt\nfrom gnuradio import gr\n\n\nclass blk(gr.basic_block):\n\
+      \    \"\"\"\n    Embedded Python Block\n\n    Parameters:\n        delay (int)\n\
+      \        samples_per_pri (int)\n\n    Message Input:\n        meas : PMT pair,\
+      \ second value is an integer\n\n    Message Output:\n        dly : PMT long\n\
+      \    \"\"\"\n\n    def __init__(self, delay=0, samples_per_pri=1024):\n    \
+      \    gr.basic_block.__init__(\n            self,\n            name=\"Delay Calculator\"\
+      ,\n            in_sig=None,\n            out_sig=None,\n        )\n\n      \
+      \  self.delay = int(delay)\n        self.samples_per_pri = int(samples_per_pri)\n\
+      \n        # Internal delay state\n        self.dly = 0\n\n        # Message\
+      \ ports\n        self.message_port_register_in(pmt.intern(\"meas\"))\n     \
+      \   self.set_msg_handler(pmt.intern(\"meas\"), self.handle_meas)\n\n       \
+      \ self.message_port_register_out(pmt.intern(\"dly\"))\n\n    def handle_meas(self,\
+      \ msg):\n        try:\n            # Expecting a PMT pair (cons cell)\n    \
+      \        meas = int(pmt.to_long(pmt.cdr(msg)))\n\n            self.dly = (\n\
+      \                self.dly\n                + self.delay\n                - meas\n\
+      \                + self.samples_per_pri\n            ) % self.samples_per_pri\n\
+      \n            # Publish updated delay as PMT long\n            self.message_port_pub(\n\
+      \                pmt.intern(\"dly\"),\n                pmt.from_long(self.dly)\n\
+      \            )\n\n        except Exception as e:\n            print(\"Delay\
+      \ Calculator error:\", e)\n\n    def general_work(self, input_items, output_items):\n\
+      \        # Message-only block\n        return 0\n"
+    affinity: ''
+    alias: ''
+    comment: ''
+    delay: delay
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samples_per_pri: samples_per_pri
+  states:
+    _io_cache: '(''Delay Calculator'', ''blk'', [(''delay'', ''0''), (''samples_per_pri'',
+      ''1024'')], [(''meas'', ''message'', 1)], [(''dly'', ''message'', 1)], ''\n    Embedded
+      Python Block\n\n    Parameters:\n        delay (int)\n        samples_per_pri
+      (int)\n\n    Message Input:\n        meas : PMT pair, second value is an integer\n\n    Message
+      Output:\n        dly : PMT long\n    '', [''delay'', ''samples_per_pri''])'
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2544, 400.0]
     rotation: 0
     state: true
 - name: fft_filter_xxx_0
@@ -305,7 +374,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [576, 392.0]
+    coordinate: [768, 392.0]
     rotation: 0
     state: enabled
 - name: import_0
@@ -337,7 +406,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1248, 520.0]
+    coordinate: [1400, 520.0]
     rotation: 0
     state: enabled
 - name: lfmTools_LFM_Source_0
@@ -376,7 +445,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1392, 384.0]
+    coordinate: [1552, 384.0]
     rotation: 0
     state: enabled
 - name: lfmTools_peak_detector_0
@@ -394,7 +463,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1024, 392.0]
+    coordinate: [1184, 392.0]
     rotation: 0
     state: enabled
 - name: lfmTools_peak_detector_0_1
@@ -412,7 +481,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1768, 392.0]
+    coordinate: [1928, 392.0]
     rotation: 0
     state: enabled
 - name: lfmTools_peak_file_sink_0
@@ -430,9 +499,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2144, 392.0]
+    coordinate: [2296, 392.0]
     rotation: 0
     state: true
+- name: lfmTools_reset_tagger_0
+  id: lfmTools_reset_tagger
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    wait: int(samp_rate)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [568, 400.0]
+    rotation: 0
+    state: enabled
 - name: lfmTools_tag_advance_0
   id: lfmTools_tag_advance
   parameters:
@@ -446,7 +531,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1240, 408.0]
+    coordinate: [1400, 408.0]
     rotation: 0
     state: enabled
 - name: lfmTools_tag_delay_0
@@ -462,7 +547,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1576, 408.0]
+    coordinate: [1736, 408.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0
@@ -496,7 +581,7 @@ blocks:
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
-    gui_hint: 2, 0, 1, 1
+    gui_hint: 1, 0, 1, 1
     label1: Before Cancellation
     label10: Signal 10
     label2: After Cancellation
@@ -519,7 +604,7 @@ blocks:
     marker8: '-1'
     marker9: '-1'
     name: '"Target Emulator Echo"'
-    nconnections: '2'
+    nconnections: '1'
     size: int(samp_rate * PRI)
     srate: samp_rate
     stemplot: 'False'
@@ -559,7 +644,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1984, 16.0]
+    coordinate: [1184, 280.0]
     rotation: 0
     state: enabled
 - name: qtgui_time_sink_x_0_1_0
@@ -656,7 +741,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [376, 472.0]
+    coordinate: [568, 472.0]
     rotation: 0
     state: disabled
 - name: qtgui_time_sink_x_0_1_0_0
@@ -753,7 +838,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [376, 576.0]
+    coordinate: [568, 576.0]
     rotation: 0
     state: disabled
 - name: uhd_usrp_sink_0
@@ -1307,7 +1392,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1576, 468.0]
+    coordinate: [1928, 484.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -2182,25 +2267,83 @@ blocks:
     coordinate: [40, 540.0]
     rotation: 0
     state: disabled
+- name: virtual_sink_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: reset
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2544, 472.0]
+    rotation: 0
+    state: enabled
+- name: virtual_sink_0_0
+  id: virtual_sink
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: dly
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2728, 408.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_0
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: reset
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 424.0]
+    rotation: 0
+    state: enabled
+- name: virtual_source_1
+  id: virtual_source
+  parameters:
+    alias: ''
+    comment: ''
+    stream_id: dly
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1416, 624.0]
+    rotation: 0
+    state: true
 
 connections:
 - [blocks_complex_to_mag_0, '0', lfmTools_peak_detector_0, '0']
+- [blocks_complex_to_mag_0, '0', qtgui_time_sink_x_0, '0']
 - [blocks_delay_0, '0', uhd_usrp_sink_0_0, '0']
 - [blocks_skiphead_0, '0', lfmTools_peak_file_sink_0, '0']
+- [epy_block_0, dly, virtual_sink_0_0, '0']
 - [fft_filter_xxx_0, '0', blocks_complex_to_mag_0, '0']
 - [lfmTools_LFM_On_Trigger_0_1, '0', blocks_delay_0, '0']
 - [lfmTools_LFM_Source_0, '0', uhd_usrp_sink_0, '0']
 - [lfmTools_peak_cancel_0, '0', lfmTools_tag_delay_0, '0']
 - [lfmTools_peak_detector_0, '0', lfmTools_LFM_On_Trigger_0_1, '0']
 - [lfmTools_peak_detector_0, '0', lfmTools_tag_advance_0, '0']
-- [lfmTools_peak_detector_0, '0', qtgui_time_sink_x_0, '0']
 - [lfmTools_peak_detector_0_1, '0', blocks_skiphead_0, '0']
-- [lfmTools_peak_detector_0_1, '0', qtgui_time_sink_x_0, '1']
+- [lfmTools_peak_file_sink_0, delay, blocks_message_debug_0, print]
+- [lfmTools_peak_file_sink_0, delay, epy_block_0, meas]
+- [lfmTools_peak_file_sink_0, delay, virtual_sink_0, '0']
+- [lfmTools_reset_tagger_0, '0', fft_filter_xxx_0, '0']
 - [lfmTools_tag_advance_0, '0', lfmTools_peak_cancel_0, '0']
 - [lfmTools_tag_delay_0, '0', lfmTools_peak_detector_0_1, '0']
-- [uhd_usrp_source_0, '0', fft_filter_xxx_0, '0']
+- [uhd_usrp_source_0, '0', lfmTools_reset_tagger_0, '0']
 - [uhd_usrp_source_0, '0', qtgui_time_sink_x_0_1_0, '0']
 - [uhd_usrp_source_0_0, '0', qtgui_time_sink_x_0_1_0_0, '0']
+- [virtual_source_0, '0', lfmTools_reset_tagger_0, reset]
+- [virtual_source_1, '0', blocks_delay_0, dly]
 
 metadata:
   file_format: 1

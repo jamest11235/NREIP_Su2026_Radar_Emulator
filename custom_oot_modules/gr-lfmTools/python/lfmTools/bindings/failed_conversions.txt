@@ -3,3 +3,4 @@
 ./include/gnuradio/lfmTools/reset_tagger.hError occurred while running CASTXML xml file does not exist
 ./include/gnuradio/lfmTools/reset_tagger.hError occurred while running CASTXML xml file does not exist
 ./include/gnuradio/lfmTools/reset_tagger.hError occurred while running CASTXML xml file does not exist
+./include/gnuradio/lfmTools/delay_lfm.hError occurred while running CASTXML xml file does not exist
