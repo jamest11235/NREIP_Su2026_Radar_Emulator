@@ -32,7 +32,6 @@ private:
     public:
         sliding_window_max(int window);
         std::pair<uint64_t, output_type> get_current() const;
-        int get_size() const;
         void add_value(output_type val, bool push);
         void clear(int window);
         void skip();

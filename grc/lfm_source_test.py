@@ -210,6 +210,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
             self.top_grid_layout.setColumnStretch(c, 1)
         self.lfmTools_tag_delay_0 = lfmTools.tag_delay((int(PRI * duty_cycle * samp_rate)))
         self.lfmTools_tag_advance_0 = lfmTools.tag_advance((int(PRI * duty_cycle * samp_rate)))
+        self.lfmTools_peak_file_sink_0 = lfmTools.peak_file_sink('delay.txt', 'RUT', 'Target')
         self.lfmTools_peak_detector_0_1 = lfmTools.peak_detector(0.01, (int(PRI * samp_rate * 0.5)), 'Target')
         self.lfmTools_peak_detector_0 = lfmTools.peak_detector(0.01, (int(PRI * samp_rate * 0.5)), 'RUT')
         self.lfmTools_peak_cancel_0 = lfmTools.peak_cancel(bandwidth, duty_cycle * PRI, samp_rate, 'RUT')
@@ -217,6 +218,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.lfmTools_LFM_On_Trigger_0_1 = lfmTools.LFM_On_Trigger(bandwidth, PRI * duty_cycle, samp_rate, amplitude)
         self.fft_filter_xxx_0 = filter.fft_filter_ccc(1, raw_filter / filter_energy, 1)
         self.fft_filter_xxx_0.declare_sample_delay(0)
+        self.blocks_skiphead_0 = blocks.skiphead(gr.sizeof_float*1, int(samp_rate))
         self.blocks_delay_0 = blocks.delay(gr.sizeof_gr_complex*1, delay)
         self.blocks_complex_to_mag_0 = blocks.complex_to_mag(1)
 
@@ -226,6 +228,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         ##################################################
         self.connect((self.blocks_complex_to_mag_0, 0), (self.lfmTools_peak_detector_0, 0))
         self.connect((self.blocks_delay_0, 0), (self.uhd_usrp_sink_0_0, 0))
+        self.connect((self.blocks_skiphead_0, 0), (self.lfmTools_peak_file_sink_0, 0))
         self.connect((self.fft_filter_xxx_0, 0), (self.blocks_complex_to_mag_0, 0))
         self.connect((self.lfmTools_LFM_On_Trigger_0_1, 0), (self.blocks_delay_0, 0))
         self.connect((self.lfmTools_LFM_Source_0, 0), (self.uhd_usrp_sink_0, 0))
@@ -233,6 +236,7 @@ class lfm_source_test(gr.top_block, Qt.QWidget):
         self.connect((self.lfmTools_peak_detector_0, 0), (self.lfmTools_LFM_On_Trigger_0_1, 0))
         self.connect((self.lfmTools_peak_detector_0, 0), (self.lfmTools_tag_advance_0, 0))
         self.connect((self.lfmTools_peak_detector_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.lfmTools_peak_detector_0_1, 0), (self.blocks_skiphead_0, 0))
         self.connect((self.lfmTools_peak_detector_0_1, 0), (self.qtgui_time_sink_x_0, 1))
         self.connect((self.lfmTools_tag_advance_0, 0), (self.lfmTools_peak_cancel_0, 0))
         self.connect((self.lfmTools_tag_delay_0, 0), (self.lfmTools_peak_detector_0_1, 0))

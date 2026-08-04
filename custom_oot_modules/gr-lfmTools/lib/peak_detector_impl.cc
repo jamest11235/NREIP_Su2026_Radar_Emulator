@@ -27,10 +27,6 @@ std::pair<uint64_t, output_type> peak_detector_impl::sliding_window_max::get_cur
     return d_dq.front();
 }
 
-int peak_detector_impl::sliding_window_max::get_size() const {
-    return std::min(static_cast<int>(d_i), d_window_size);
-}
-
 void peak_detector_impl::sliding_window_max::add_value(output_type val, bool push) {
     while (!d_dq.empty() && d_dq.front().first <= d_i - d_window_size) {
         d_dq.pop_front();

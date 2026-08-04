@@ -270,6 +270,24 @@ blocks:
     coordinate: [1408, 544.0]
     rotation: 0
     state: true
+- name: blocks_skiphead_0
+  id: blocks_skiphead
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_items: int(samp_rate)
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1960, 408.0]
+    rotation: 0
+    state: true
 - name: fft_filter_xxx_0
   id: fft_filter_xxx
   parameters:
@@ -397,6 +415,24 @@ blocks:
     coordinate: [1768, 392.0]
     rotation: 0
     state: enabled
+- name: lfmTools_peak_file_sink_0
+  id: lfmTools_peak_file_sink
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    file: delay.txt
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    rx: Target
+    tx: RUT
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2144, 392.0]
+    rotation: 0
+    state: true
 - name: lfmTools_tag_advance_0
   id: lfmTools_tag_advance
   parameters:
@@ -2150,6 +2186,7 @@ blocks:
 connections:
 - [blocks_complex_to_mag_0, '0', lfmTools_peak_detector_0, '0']
 - [blocks_delay_0, '0', uhd_usrp_sink_0_0, '0']
+- [blocks_skiphead_0, '0', lfmTools_peak_file_sink_0, '0']
 - [fft_filter_xxx_0, '0', blocks_complex_to_mag_0, '0']
 - [lfmTools_LFM_On_Trigger_0_1, '0', blocks_delay_0, '0']
 - [lfmTools_LFM_Source_0, '0', uhd_usrp_sink_0, '0']
@@ -2157,6 +2194,7 @@ connections:
 - [lfmTools_peak_detector_0, '0', lfmTools_LFM_On_Trigger_0_1, '0']
 - [lfmTools_peak_detector_0, '0', lfmTools_tag_advance_0, '0']
 - [lfmTools_peak_detector_0, '0', qtgui_time_sink_x_0, '0']
+- [lfmTools_peak_detector_0_1, '0', blocks_skiphead_0, '0']
 - [lfmTools_peak_detector_0_1, '0', qtgui_time_sink_x_0, '1']
 - [lfmTools_tag_advance_0, '0', lfmTools_peak_cancel_0, '0']
 - [lfmTools_tag_delay_0, '0', lfmTools_peak_detector_0_1, '0']
