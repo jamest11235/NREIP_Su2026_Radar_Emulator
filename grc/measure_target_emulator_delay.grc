@@ -45,7 +45,7 @@ blocks:
     start: 1e-6
     step: 1e-6
     stop: '1'
-    value: '0.0001'
+    value: '0.01'
     widget: counter
   states:
     bus_sink: false
@@ -107,7 +107,7 @@ blocks:
     rangeType: int
     start: '0'
     step: '50'
-    stop: '200'
+    stop: int(3 * PRI * samp_rate)
     value: '0'
     widget: counter
   states:
@@ -129,7 +129,7 @@ blocks:
     start: '0'
     step: '0.01'
     stop: '1'
-    value: '0.4'
+    value: '0.01'
     widget: counter
   states:
     bus_sink: false
@@ -250,23 +250,26 @@ blocks:
     coordinate: [808, 416.0]
     rotation: 0
     state: true
-- name: blocks_message_strobe_0
-  id: blocks_message_strobe
+- name: blocks_delay_0
+  id: blocks_delay
   parameters:
     affinity: ''
     alias: ''
     comment: ''
+    delay: delay
     maxoutbuf: '0'
     minoutbuf: '0'
-    msg: pmt.cons(pmt.intern("wait"), pmt.from_long(delay))
-    period: '1000'
+    num_ports: '1'
+    showports: 'False'
+    type: complex
+    vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1016, 552.0]
+    coordinate: [1408, 544.0]
     rotation: 0
-    state: enabled
+    state: true
 - name: fft_filter_xxx_0
   id: fft_filter_xxx
   parameters:
@@ -316,7 +319,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1368, 520.0]
+    coordinate: [1248, 520.0]
     rotation: 0
     state: enabled
 - name: lfmTools_LFM_Source_0
@@ -363,12 +366,12 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    alpha: '0.80'
     comment: ''
     key: RUT
-    look_ahead: int(2 * PRI * duty_cycle * samp_rate)
+    lookahead: int(PRI * samp_rate * 0.5)
     maxoutbuf: '0'
     minoutbuf: '0'
+    thres: '0.01'
   states:
     bus_sink: false
     bus_source: false
@@ -381,12 +384,12 @@ blocks:
   parameters:
     affinity: ''
     alias: ''
-    alpha: '0.8'
     comment: ''
     key: Target
-    look_ahead: int(2 * PRI * duty_cycle * samp_rate)
+    lookahead: int(PRI * samp_rate * 0.5)
     maxoutbuf: '0'
     minoutbuf: '0'
+    thres: '0.01'
   states:
     bus_sink: false
     bus_source: false
@@ -394,22 +397,6 @@ blocks:
     coordinate: [1768, 392.0]
     rotation: 0
     state: enabled
-- name: lfmTools_reset_tagger_0
-  id: lfmTools_reset_tagger
-  parameters:
-    affinity: ''
-    alias: ''
-    comment: ''
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    wait: int(samp_rate)
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [376, 400.0]
-    rotation: 0
-    state: true
 - name: lfmTools_tag_advance_0
   id: lfmTools_tag_advance
   parameters:
@@ -529,8 +516,8 @@ blocks:
     width8: '1'
     width9: '1'
     ylabel: Amplitude
-    ymax: '1'
-    ymin: '-1'
+    ymax: '0.2'
+    ymin: '-0.01'
     yunit: '""'
   states:
     bus_sink: false
@@ -635,7 +622,7 @@ blocks:
     bus_structure: null
     coordinate: [376, 472.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: qtgui_time_sink_x_0_1_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -732,7 +719,7 @@ blocks:
     bus_structure: null
     coordinate: [376, 576.0]
     rotation: 0
-    state: enabled
+    state: disabled
 - name: uhd_usrp_sink_0
   id: uhd_usrp_sink
   parameters:
@@ -846,7 +833,7 @@ blocks:
     comment: ''
     dev_addr: addr=192.168.110.2
     dev_args: ''
-    gain0: '10'
+    gain0: '5'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -1464,7 +1451,7 @@ blocks:
     dc_offs_enb9: default
     dev_addr: addr=192.168.10.5
     dev_args: ''
-    gain0: '10'
+    gain0: '5'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -2158,24 +2145,22 @@ blocks:
     bus_structure: null
     coordinate: [40, 540.0]
     rotation: 0
-    state: enabled
+    state: disabled
 
 connections:
 - [blocks_complex_to_mag_0, '0', lfmTools_peak_detector_0, '0']
-- [blocks_message_strobe_0, strobe, lfmTools_LFM_On_Trigger_0_1, wait]
+- [blocks_delay_0, '0', uhd_usrp_sink_0_0, '0']
 - [fft_filter_xxx_0, '0', blocks_complex_to_mag_0, '0']
-- [lfmTools_LFM_On_Trigger_0_1, '0', uhd_usrp_sink_0_0, '0']
+- [lfmTools_LFM_On_Trigger_0_1, '0', blocks_delay_0, '0']
 - [lfmTools_LFM_Source_0, '0', uhd_usrp_sink_0, '0']
-- [lfmTools_LFM_Source_0, reset, lfmTools_reset_tagger_0, reset]
 - [lfmTools_peak_cancel_0, '0', lfmTools_tag_delay_0, '0']
 - [lfmTools_peak_detector_0, '0', lfmTools_LFM_On_Trigger_0_1, '0']
 - [lfmTools_peak_detector_0, '0', lfmTools_tag_advance_0, '0']
 - [lfmTools_peak_detector_0, '0', qtgui_time_sink_x_0, '0']
 - [lfmTools_peak_detector_0_1, '0', qtgui_time_sink_x_0, '1']
-- [lfmTools_reset_tagger_0, '0', fft_filter_xxx_0, '0']
 - [lfmTools_tag_advance_0, '0', lfmTools_peak_cancel_0, '0']
 - [lfmTools_tag_delay_0, '0', lfmTools_peak_detector_0_1, '0']
-- [uhd_usrp_source_0, '0', lfmTools_reset_tagger_0, '0']
+- [uhd_usrp_source_0, '0', fft_filter_xxx_0, '0']
 - [uhd_usrp_source_0, '0', qtgui_time_sink_x_0_1_0, '0']
 - [uhd_usrp_source_0_0, '0', qtgui_time_sink_x_0_1_0_0, '0']
 

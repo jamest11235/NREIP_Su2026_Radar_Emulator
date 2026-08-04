@@ -27,25 +27,23 @@ private:
     class sliding_window_max {
     private:
         uint64_t d_i;
-        uint64_t d_offset;
         int d_window_size;
-        output_type d_thres;
-        std::queue<std::pair<uint64_t, output_type>> d_q;
         std::deque<std::pair<uint64_t, output_type>> d_dq;
     public:
-        sliding_window_max(int window, uint64_t offset, output_type thres);
+        sliding_window_max(int window);
         std::pair<uint64_t, output_type> get_current() const;
-        std::pair<uint64_t, output_type> get_oldest() const;
         int get_size() const;
-        void add_value(output_type val);
-        void clear(int window, uint64_t offset, output_type thres);
+        void add_value(output_type val, bool push);
+        void clear(int window);
+        void skip();
     };
     
-    float d_thres;
+    output_type d_thres;
     int d_lookahead;
     std::string d_key;
     sliding_window_max d_bf_max;
     sliding_window_max d_af_max;
+    void push(sliding_window_max& max, output_type val);
     void clear();
     
 public:
