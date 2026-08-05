@@ -10,6 +10,7 @@ templates:
   - set_pulse_width(${pulse_width})
   - set_samp_rate(${samp_rate})
   - set_amplitude(${amplitude})
+  - set_key(${key})
 
 #  Make one 'parameters' list entry for every parameter you want settable from the GUI.
 #     Keys include:
@@ -34,6 +35,10 @@ parameters:
   label: Amplitude
   dtype: float
   default: 0.5
+- id: key
+  label: Key
+  dtype: string
+  default: RUT
 
 #  Make one 'inputs' list entry per input and one 'outputs' list entry per output.
 #  Keys include:

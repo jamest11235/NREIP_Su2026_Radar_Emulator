@@ -35,12 +35,14 @@ public:
     static sptr make(float bandwidth = 1e6,
                      float pulse_width = 500e-6,
                      float samp_rate = 2e6,
-                     float amplitude = 0.5);
+                     float amplitude = 0.5,
+                     std::string key = "RUT");
                      
     virtual void set_bandwidth(float bandwidth) = 0;
     virtual void set_pulse_width(float pulse_width) = 0;
     virtual void set_samp_rate(float samp_rate) = 0;
     virtual void set_amplitude(float amplitude) = 0;
+    virtual void set_key(std::string key) = 0;
 };
 
 } // namespace lfmTools

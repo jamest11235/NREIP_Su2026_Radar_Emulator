@@ -23,12 +23,13 @@ private:
     float d_samp_rate;
     float d_amplitude;
     bool d_found;
+    std::string d_key;
     std::vector<gr_complex> d_pulse;
     void generate_pulse();
 
 
 public:
-    LFM_On_Trigger_impl(float bandwidth, float pulse_width, float samp_rate, float amplitude);
+    LFM_On_Trigger_impl(float bandwidth, float pulse_width, float samp_rate, float amplitude, std::string key);
     ~LFM_On_Trigger_impl();
 
     // Where all the action really happens
@@ -40,6 +41,7 @@ public:
     void set_pulse_width(float pulse_width);
     void set_samp_rate(float samp_rate);
     void set_amplitude(float amplitude);
+    void set_key(std::string key);
 
 };
 

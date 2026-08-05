@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(LFM_On_Trigger.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(87428f6ff21985a4516332beec584ace)                     */
+/* BINDTOOL_HEADER_FILE_HASH(b060cb25cf2d70b1810bc534fbeb2e2b)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -44,6 +44,7 @@ void bind_LFM_On_Trigger(py::module& m)
              py::arg("pulse_width") = 5.0000000000000001E-4,
              py::arg("samp_rate") = 2.0E+6,
              py::arg("amplitude") = 0.5,
+             py::arg("key") = "RUT",
              D(LFM_On_Trigger, make))
 
 
@@ -69,6 +70,12 @@ void bind_LFM_On_Trigger(py::module& m)
              &LFM_On_Trigger::set_amplitude,
              py::arg("amplitude"),
              D(LFM_On_Trigger, set_amplitude))
+
+
+        .def("set_key",
+             &LFM_On_Trigger::set_key,
+             py::arg("key"),
+             D(LFM_On_Trigger, set_key))
 
         ;
 }

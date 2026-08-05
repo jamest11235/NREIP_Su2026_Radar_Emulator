@@ -37,3 +37,6 @@ static const char* __doc_gr_lfmTools_LFM_On_Trigger_set_samp_rate = R"doc()doc";
 
 
 static const char* __doc_gr_lfmTools_LFM_On_Trigger_set_amplitude = R"doc()doc";
+
+
+static const char* __doc_gr_lfmTools_LFM_On_Trigger_set_key = R"doc()doc";

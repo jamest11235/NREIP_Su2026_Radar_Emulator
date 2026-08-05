@@ -23,16 +23,16 @@ using output_type = gr_complex;
 constexpr float PI = 3.1415926536f;
 
 LFM_On_Trigger::sptr
-LFM_On_Trigger::make(float bandwidth, float pulse_width, float samp_rate, float amplitude) {
+LFM_On_Trigger::make(float bandwidth, float pulse_width, float samp_rate, float amplitude, std::string key) {
     return gnuradio::make_block_sptr<LFM_On_Trigger_impl>(
-        bandwidth, pulse_width, samp_rate, amplitude);
+        bandwidth, pulse_width, samp_rate, amplitude, key);
 }
 
 
 /*
  * The private constructor
  */
-LFM_On_Trigger_impl::LFM_On_Trigger_impl(float bandwidth, float pulse_width, float samp_rate, float amplitude)
+LFM_On_Trigger_impl::LFM_On_Trigger_impl(float bandwidth, float pulse_width, float samp_rate, float amplitude, std::string key)
     : gr::sync_block("LFM_On_Trigger",
                      gr::io_signature::make(
                          1 /* min inputs */, 1 /* max inputs */, sizeof(input_type)),
@@ -42,7 +42,8 @@ LFM_On_Trigger_impl::LFM_On_Trigger_impl(float bandwidth, float pulse_width, flo
       d_pulse_width(pulse_width),
       d_samp_rate(samp_rate),
       d_amplitude(amplitude),
-      d_found(false) {
+      d_found(false),
+      d_key("RUT") {
     generate_pulse();
 }
 
@@ -64,6 +65,10 @@ void LFM_On_Trigger_impl::set_samp_rate(float samp_rate) {
 void LFM_On_Trigger_impl::set_amplitude(float amplitude) {
     d_amplitude = amplitude;
     generate_pulse();
+}
+
+void LFM_On_Trigger_impl::set_key(std::string key) {
+    d_key = key;
 }
 
 /*
@@ -97,7 +102,7 @@ int LFM_On_Trigger_impl::work(int noutput_items,
     std::vector<bool> peaks(noutput_items, false);
     for (const auto& tag : tags) {
         size_t index = tag.offset - start;
-        if (index < peaks.size()) {
+        if (index < peaks.size() && pmt::is_symbol(tag.key) && pmt::symbol_to_string(tag.key) == d_key) {
             peaks[index] = true;
         }
     }
