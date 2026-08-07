@@ -66,7 +66,7 @@ blocks:
     start: '0'
     step: '0.02'
     stop: '1.01'
-    value: '0.4'
+    value: '1.0'
     widget: counter_slider
   states:
     bus_sink: false
@@ -279,9 +279,29 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1672, 552.0]
+    coordinate: [1640, 560.0]
     rotation: 0
-    state: true
+    state: enabled
+- name: blocks_delay_1
+  id: blocks_delay
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    delay: int(PRI * samp_rate * 0.5)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_ports: '1'
+    showports: 'False'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1960, 496.0]
+    rotation: 0
+    state: enabled
 - name: blocks_message_debug_0
   id: blocks_message_debug
   parameters:
@@ -293,7 +313,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2568, 296.0]
+    coordinate: [2576, 296.0]
     rotation: 0
     state: true
 - name: blocks_skiphead_0
@@ -313,7 +333,7 @@ blocks:
     bus_structure: null
     coordinate: [2120, 408.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: epy_block_0
   id: epy_block
   parameters:
@@ -354,9 +374,9 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2544, 400.0]
+    coordinate: [2552, 400.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: fft_filter_xxx_0
   id: fft_filter_xxx
   parameters:
@@ -398,6 +418,7 @@ blocks:
     amplitude: amplitude
     bandwidth: bandwidth
     comment: ''
+    key: RUT
     maxoutbuf: '0'
     minoutbuf: '0'
     pulse_width: PRI * duty_cycle
@@ -481,7 +502,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1928, 392.0]
+    coordinate: [1944, 392.0]
     rotation: 0
     state: enabled
 - name: lfmTools_peak_file_sink_0
@@ -501,7 +522,7 @@ blocks:
     bus_structure: null
     coordinate: [2296, 392.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: lfmTools_reset_tagger_0
   id: lfmTools_reset_tagger
   parameters:
@@ -510,7 +531,7 @@ blocks:
     comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
-    wait: int(samp_rate)
+    wait: int(samp_rate  * 0.1)
   states:
     bus_sink: false
     bus_source: false
@@ -550,103 +571,6 @@ blocks:
     coordinate: [1736, 408.0]
     rotation: 0
     state: enabled
-- name: qtgui_time_sink_x_0
-  id: qtgui_time_sink_x
-  parameters:
-    affinity: ''
-    alias: ''
-    alpha1: '1.0'
-    alpha10: '1.0'
-    alpha2: '1.0'
-    alpha3: '1.0'
-    alpha4: '1.0'
-    alpha5: '1.0'
-    alpha6: '1.0'
-    alpha7: '1.0'
-    alpha8: '1.0'
-    alpha9: '1.0'
-    autoscale: 'False'
-    axislabels: 'True'
-    color1: blue
-    color10: dark blue
-    color2: red
-    color3: green
-    color4: black
-    color5: cyan
-    color6: magenta
-    color7: yellow
-    color8: dark red
-    color9: dark green
-    comment: ''
-    ctrlpanel: 'False'
-    entags: 'True'
-    grid: 'False'
-    gui_hint: 1, 0, 1, 1
-    label1: Before Cancellation
-    label10: Signal 10
-    label2: After Cancellation
-    label3: RX Signal
-    label4: Signal 4
-    label5: Signal 5
-    label6: Signal 6
-    label7: Signal 7
-    label8: Signal 8
-    label9: Signal 9
-    legend: 'True'
-    marker1: '-1'
-    marker10: '-1'
-    marker2: '-1'
-    marker3: '-1'
-    marker4: '-1'
-    marker5: '-1'
-    marker6: '-1'
-    marker7: '-1'
-    marker8: '-1'
-    marker9: '-1'
-    name: '"Target Emulator Echo"'
-    nconnections: '1'
-    size: int(samp_rate * PRI)
-    srate: samp_rate
-    stemplot: 'False'
-    style1: '1'
-    style10: '1'
-    style2: '1'
-    style3: '1'
-    style4: '1'
-    style5: '1'
-    style6: '1'
-    style7: '1'
-    style8: '1'
-    style9: '1'
-    tr_chan: '0'
-    tr_delay: '0'
-    tr_level: '0.0'
-    tr_mode: qtgui.TRIG_MODE_FREE
-    tr_slope: qtgui.TRIG_SLOPE_POS
-    tr_tag: '""'
-    type: float
-    update_time: '0.10'
-    width1: '1'
-    width10: '1'
-    width2: '1'
-    width3: '1'
-    width4: '1'
-    width5: '1'
-    width6: '1'
-    width7: '1'
-    width8: '1'
-    width9: '1'
-    ylabel: Amplitude
-    ymax: '0.2'
-    ymin: '-0.01'
-    yunit: '""'
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [1184, 280.0]
-    rotation: 0
-    state: enabled
 - name: qtgui_time_sink_x_0_1_0
   id: qtgui_time_sink_x
   parameters:
@@ -678,7 +602,7 @@ blocks:
     ctrlpanel: 'False'
     entags: 'True'
     grid: 'False'
-    gui_hint: 1, 0, 1, 1
+    gui_hint: 5, 0, 1, 1
     label1: Signal 1
     label10: Signal 10
     label2: Signal 2
@@ -743,7 +667,7 @@ blocks:
     bus_structure: null
     coordinate: [568, 472.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: qtgui_time_sink_x_0_1_0_0
   id: qtgui_time_sink_x
   parameters:
@@ -841,6 +765,394 @@ blocks:
     coordinate: [568, 576.0]
     rotation: 0
     state: disabled
+- name: qtgui_time_sink_x_1
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: int(samples_per_pri)
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '0.2'
+    ymin: '0'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1184, 304.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_1_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: int(samples_per_pri)
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '0.2'
+    ymin: '0'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1376, 304.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_1_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: int(samples_per_pri)
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '0.2'
+    ymin: '0'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1936, 296.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_1_0_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '2'
+    size: int(samples_per_pri)
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '0.2'
+    ymin: '0'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [2120, 464.0]
+    rotation: 0
+    state: enabled
 - name: uhd_usrp_sink_0
   id: uhd_usrp_sink
   parameters:
@@ -954,7 +1266,7 @@ blocks:
     comment: ''
     dev_addr: addr=192.168.110.2
     dev_args: ''
-    gain0: '5'
+    gain0: '10'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -1392,7 +1704,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1928, 484.0]
+    coordinate: [1832, 564.0]
     rotation: 0
     state: enabled
 - name: uhd_usrp_source_0
@@ -1572,7 +1884,7 @@ blocks:
     dc_offs_enb9: default
     dev_addr: addr=192.168.10.5
     dev_args: ''
-    gain0: '5'
+    gain0: '10'
     gain1: '0'
     gain10: '0'
     gain11: '0'
@@ -2277,7 +2589,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2544, 472.0]
+    coordinate: [2552, 472.0]
     rotation: 0
     state: enabled
 - name: virtual_sink_0_0
@@ -2290,7 +2602,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [2728, 408.0]
+    coordinate: [2744, 408.0]
     rotation: 0
     state: enabled
 - name: virtual_source_0
@@ -2303,7 +2615,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 424.0]
+    coordinate: [360, 424.0]
     rotation: 0
     state: enabled
 - name: virtual_source_1
@@ -2316,14 +2628,15 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1416, 624.0]
+    coordinate: [1416, 640.0]
     rotation: 0
-    state: true
+    state: enabled
 
 connections:
 - [blocks_complex_to_mag_0, '0', lfmTools_peak_detector_0, '0']
-- [blocks_complex_to_mag_0, '0', qtgui_time_sink_x_0, '0']
+- [blocks_complex_to_mag_0, '0', qtgui_time_sink_x_1, '0']
 - [blocks_delay_0, '0', uhd_usrp_sink_0_0, '0']
+- [blocks_delay_1, '0', qtgui_time_sink_x_1_0_0_0, '1']
 - [blocks_skiphead_0, '0', lfmTools_peak_file_sink_0, '0']
 - [epy_block_0, dly, virtual_sink_0_0, '0']
 - [fft_filter_xxx_0, '0', blocks_complex_to_mag_0, '0']
@@ -2332,13 +2645,17 @@ connections:
 - [lfmTools_peak_cancel_0, '0', lfmTools_tag_delay_0, '0']
 - [lfmTools_peak_detector_0, '0', lfmTools_LFM_On_Trigger_0_1, '0']
 - [lfmTools_peak_detector_0, '0', lfmTools_tag_advance_0, '0']
+- [lfmTools_peak_detector_0, '0', qtgui_time_sink_x_1_0, '0']
 - [lfmTools_peak_detector_0_1, '0', blocks_skiphead_0, '0']
+- [lfmTools_peak_detector_0_1, '0', qtgui_time_sink_x_1_0_0_0, '0']
 - [lfmTools_peak_file_sink_0, delay, blocks_message_debug_0, print]
 - [lfmTools_peak_file_sink_0, delay, epy_block_0, meas]
 - [lfmTools_peak_file_sink_0, delay, virtual_sink_0, '0']
 - [lfmTools_reset_tagger_0, '0', fft_filter_xxx_0, '0']
 - [lfmTools_tag_advance_0, '0', lfmTools_peak_cancel_0, '0']
+- [lfmTools_tag_delay_0, '0', blocks_delay_1, '0']
 - [lfmTools_tag_delay_0, '0', lfmTools_peak_detector_0_1, '0']
+- [lfmTools_tag_delay_0, '0', qtgui_time_sink_x_1_0_0, '0']
 - [uhd_usrp_source_0, '0', lfmTools_reset_tagger_0, '0']
 - [uhd_usrp_source_0, '0', qtgui_time_sink_x_0_1_0, '0']
 - [uhd_usrp_source_0_0, '0', qtgui_time_sink_x_0_1_0_0, '0']

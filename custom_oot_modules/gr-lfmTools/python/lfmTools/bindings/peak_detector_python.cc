@@ -14,7 +14,7 @@
 /* BINDTOOL_GEN_AUTOMATIC(0)                                                       */
 /* BINDTOOL_USE_PYGCCXML(0)                                                        */
 /* BINDTOOL_HEADER_FILE(peak_detector.h)                                        */
-/* BINDTOOL_HEADER_FILE_HASH(5439d1f2d042b73ccebef6d356f09273)                     */
+/* BINDTOOL_HEADER_FILE_HASH(42882c2e9f4b46fd2488b834b526a504)                     */
 /***********************************************************************************/
 
 #include <pybind11/complex.h>
@@ -33,17 +33,17 @@ void bind_peak_detector(py::module& m)
     using peak_detector = ::gr::lfmTools::peak_detector;
 
 
-    py::class_<peak_detector,
-               gr::sync_block,
-               gr::block,
-               gr::basic_block,
-               std::shared_ptr<peak_detector>>(m, "peak_detector", D(peak_detector))
+    py::class_<peak_detector, gr::block, gr::basic_block, std::shared_ptr<peak_detector>>(
+        m, "peak_detector", D(peak_detector))
 
         .def(py::init(&peak_detector::make),
              py::arg("thres") = 0.01,
              py::arg("lookahead") = 100,
              py::arg("key") = "peak",
              D(peak_detector, make))
+
+
+        .def("lkahd", &peak_detector::lkahd, D(peak_detector, lkahd))
 
 
         .def("set_threshold",

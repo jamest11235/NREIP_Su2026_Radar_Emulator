@@ -23,6 +23,8 @@ using output_type = float;
 class peak_detector_impl : public peak_detector
 {
 private:
+    void forecast(int noutput_items, gr_vector_int& ninput_items_required) override;
+    int d_delta;
 
     class sliding_window_max {
     private:
@@ -31,10 +33,8 @@ private:
         std::deque<std::pair<uint64_t, output_type>> d_dq;
     public:
         sliding_window_max(int window);
-        std::pair<uint64_t, output_type> get_current() const;
+        output_type get_max() const;
         void add_value(output_type val, bool push);
-        void clear(int window);
-        void skip();
     };
     
     output_type d_thres;
@@ -52,11 +52,14 @@ public:
     ~peak_detector_impl() override;
     void set_lookahead(int look) override;
     void set_key(std::string key) override;
-    void set_threshold(int thres) override;
+    void set_threshold(float thres) override;
 
-    int work(int noutput_items,
-             gr_vector_const_void_star& input_items,
-             gr_vector_void_star& output_items) override;
+    int lkahd() const override { return history() - 1; }
+
+    int general_work(int noutput_items,
+                     gr_vector_int& ninput_items,
+                     gr_vector_const_void_star& input_items,
+                     gr_vector_void_star& output_items) override;
 };
 }
 }

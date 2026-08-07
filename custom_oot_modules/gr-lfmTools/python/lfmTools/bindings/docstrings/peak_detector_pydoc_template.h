@@ -27,6 +27,9 @@ static const char* __doc_gr_lfmTools_peak_detector_peak_detector_1 = R"doc()doc"
 static const char* __doc_gr_lfmTools_peak_detector_make = R"doc()doc";
 
 
+static const char* __doc_gr_lfmTools_peak_detector_lkahd = R"doc()doc";
+
+
 static const char* __doc_gr_lfmTools_peak_detector_set_threshold = R"doc()doc";
 
 

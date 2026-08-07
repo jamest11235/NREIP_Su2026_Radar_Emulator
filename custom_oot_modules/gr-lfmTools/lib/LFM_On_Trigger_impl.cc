@@ -109,6 +109,7 @@ int LFM_On_Trigger_impl::work(int noutput_items,
     
     if (d_found) {
         int pulse_size = d_pulse.size();
+        if (pulse_size > noutput_items) return 0;
         std::memcpy(out,
             d_pulse.data(),
             pulse_size * sizeof(output_type));

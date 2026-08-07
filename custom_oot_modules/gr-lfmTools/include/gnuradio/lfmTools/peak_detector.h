@@ -19,7 +19,7 @@ namespace lfmTools {
  * \ingroup lfmTools
  *
  */
-class LFMTOOLS_API peak_detector : virtual public gr::sync_block
+class LFMTOOLS_API peak_detector : virtual public gr::block
 {
 public:
     typedef std::shared_ptr<peak_detector> sptr;
@@ -36,7 +36,9 @@ public:
                      int lookahead = 100,
                      std::string key = "peak");
 
-    virtual void set_threshold(int thres) = 0;
+    virtual int lkahd() const = 0;
+
+    virtual void set_threshold(float thres) = 0;
     virtual void set_lookahead(int look) = 0;
     virtual void set_key(std::string key) = 0;
 
